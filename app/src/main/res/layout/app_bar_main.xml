@@ -4,31 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.houxy.days.MainActivity">
+    tools:context="com.houxy.days.ui.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        app:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_bg_color"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            />
+        <!--android:paddingTop="@dimen/toolbar_padding_top"-->
+
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_action_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:fab_addButtonColorNormal="@color/toolbar_bg_color"
+        app:fab_addButtonColorPressed="@color/fab_btn_pressed_color">
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_action_edit_diary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/ic_dialog_edit"
+            app:fab_colorNormal="@color/toolbar_bg_color"
+            app:fab_colorPressed="@color/fab_btn_pressed_color"
+            app:fab_stroke_visible="false"
+            app:fab_title="写日记"
+            />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_action_edit_special_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/ic_dialog_anniversary_1"
+            app:fab_colorNormal="@color/toolbar_bg_color"
+            app:fab_colorPressed="@color/fab_btn_pressed_color"
+            app:fab_stroke_visible="false"
+            app:fab_title="纪念日"
+            />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>

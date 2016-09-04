@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_signIn"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/sign_in" />
+    <group
+        android:id="@+id/group_1"
+        android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/setting" />
+            android:id="@+id/nav_diary"
+            android:icon="@mipmap/ic_menu_diary"
+            android:title="@string/nav_diary" />
 
         <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_share"
-            android:title="@string/share" />
+            android:id="@+id/nav_anniversary"
+            android:icon="@mipmap/ic_menu_anniversary"
+            android:title="@string/nav_anniversary" />
 
     </group>
 
-    <!--<item android:title="">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="@string/share" />-->
-        <!--</menu>-->
-    <!--</item>-->
+    <group
+        android:id="@+id/group_2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_signIn"
+            android:icon="@mipmap/ic_menu_sign_in"
+            android:title="@string/nav_sign_in" />
+
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@mipmap/ic_menu_setting"
+            android:title="@string/nav_setting" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@mipmap/ic_menu_share"
+            android:title="@string/nav_share" />
+
+        <item
+            android:id="@+id/nav_signOut"
+            android:icon="@mipmap/ic_menu_sign_out"
+            android:title="@string/nav_sign_out"
+            android:visible="false"/>
+    </group>
 
 </menu>
