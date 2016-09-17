@@ -1,8 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#e3e3e3"
+    >
 
 
+    <ImageView
+        android:id="@+id/login_banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="60dp"
+        android:src="@mipmap/login_banner"
+
+        />
+
+    <ImageView
+        android:id="@+id/login_banner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/login_welcome"
+        android:layout_below="@+id/login_banner"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="15dp"
+        />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/username_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_banner1"
+        android:layout_marginTop="@dimen/dimen_30"
+        android:layout_marginStart="@dimen/margin_15"
+        android:layout_marginEnd="@dimen/margin_15"
+        >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/username_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            android:textSize="@dimen/text_size_14"
+            android:singleLine="true"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/password_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username_til"
+        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginStart="@dimen/margin_15"
+        android:layout_marginEnd="@dimen/margin_15"
+        >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:textSize="@dimen/text_size_14"
+            android:singleLine="true"
+            android:inputType="textPassword"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password_til"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_marginStart="@dimen/margin_15"
+        android:layout_marginEnd="@dimen/margin_15"
+        android:text="@string/login"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/defaultWhite"
+        android:background="@drawable/login_btn_bg"
+        />
+
+    <Button
+        android:id="@+id/register_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_btn"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginStart="@dimen/margin_15"
+        android:layout_marginEnd="@dimen/margin_15"
+        android:text="@string/register"
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/register_btn_bg"
+        />
 
 </RelativeLayout>

@@ -9,6 +9,10 @@
         <!--<item name="android:windowTranslucentStatus">true</item>-->
         <!--不设置这个toolbar的返回按钮会很怪-->
         <item name="toolbarStyle">@style/CustomToolbar</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--设置TextInputLayout EditText hint的颜色-->
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
 </resources>

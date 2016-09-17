@@ -1,4 +1,4 @@
-package com.houxy.days.ui;
+package com.houxy.days.modules.main.ui;
 
 import android.content.Intent;
 import android.graphics.Rect;
@@ -7,20 +7,36 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
+import com.houxy.days.base.UserModel;
+import com.houxy.days.common.ToastUtils;
+import com.houxy.days.modules.diary.ui.DiaryActivity;
+import com.houxy.days.modules.diary.ui.DiaryEditActivity;
+import com.houxy.days.modules.login.ui.LoginActivity;
+import com.houxy.days.modules.main.bean.User;
+import com.houxy.days.modules.special.ui.SpecialDayEditActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.bmob.v3.BmobUser;
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,11 +48,14 @@ public class MainActivity extends BaseActivity
     @Bind(R.id.fab_action_menu)
     FloatingActionsMenu fabActionMenu;
 
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        user = BmobUser.getCurrentUser(User.class);
         initView();
     }
 
@@ -54,7 +73,7 @@ public class MainActivity extends BaseActivity
                     fabActionMenu.collapse();
                 } else if (v.getId() == R.id.fab_action_edit_special_day) {
                     Intent intent = new Intent(MainActivity.this, SpecialDayEditActivity.class);
-//                    startActivity(intent);
+                    startActivity(intent);
                     fabActionMenu.collapse();
                 }
             }
@@ -72,10 +91,60 @@ public class MainActivity extends BaseActivity
         }
         toggle.syncState();
 
+        initNavigationView();
+
+    }
+
+    private void initNavigationView() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         if (null != navigationView) {
             navigationView.setNavigationItemSelectedListener(this);
+            final View headerLayout = navigationView.getHeaderView(0);
+            TextView mottoTv = (TextView)headerLayout.findViewById(R.id.motto_tv);
+            TextView usernameTv = (TextView)headerLayout.findViewById(R.id.username_tv);
+            ImageView avatarIv =(ImageView) headerLayout.findViewById(R.id.avatar_iv);
+
+            View.OnClickListener clickListener1 = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (v.getId()){
+                        case R.id.avatar_iv:
+                            ToastUtils.show("头像");
+                            break;
+                        case R.id.motto_tv:
+                            break;
+                        case R.id.username_tv:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            };
+
+            mottoTv.setOnClickListener(clickListener1);
+            usernameTv.setOnClickListener(clickListener1);
+            avatarIv.setOnClickListener(clickListener1);
+
+            Glide.with(this).load(user.getAvatar())
+                    .placeholder(R.mipmap.default_profile)
+                    .bitmapTransform(new CropCircleTransformation(this))
+                    .into(avatarIv);
+            Glide.with(this).load(user.getAvatar())
+                    .error(R.mipmap.default_profile)
+                    .centerCrop()
+                    .bitmapTransform(new BlurTransformation(this))
+                    .priority(Priority.LOW)
+                    .into(new SimpleTarget<GlideDrawable>() {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                            headerLayout.setBackground(resource);
+                        }
+                    });
+            usernameTv.setText(user.getUsername());
+            mottoTv.setText(user.getMotto());
         }
+
     }
 
     @Override
@@ -129,10 +198,13 @@ public class MainActivity extends BaseActivity
 
         switch (item.getItemId()) {
             case R.id.nav_diary:
+                startActivity(new Intent(this, DiaryActivity.class));
                 break;
             case R.id.nav_anniversary:
                 break;
             case R.id.nav_signIn:
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_setting:
                 break;

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/diary_edit_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/toolbar_bg_color"
+    >
+    <!--android:paddingTop="@dimen/toolbar_padding_top"-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageButton
+            android:id="@+id/back_ib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dimen_15"
+            android:src="@mipmap/back"
+            android:background="@color/transparent"/>
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的日记"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:textColor="@color/toolbar_title_color"
+            android:textSize="@dimen/text_size_18" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>

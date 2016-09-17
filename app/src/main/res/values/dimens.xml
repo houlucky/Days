@@ -7,6 +7,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="toolbar_padding_top">0dp</dimen>
+    <dimen name="login_btn_width">200dp</dimen>
 
     <dimen name="margin_1">1dp</dimen>
     <dimen name="margin_2">2dp</dimen>
@@ -21,9 +22,14 @@
     <dimen name="dimen_2">2dp</dimen>
     <dimen name="dimen_3">3dp</dimen>
     <dimen name="dimen_5">5dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
     <dimen name="dimen_10">10dp</dimen>
     <dimen name="dimen_15">15dp</dimen>
     <dimen name="dimen_20">20dp</dimen>
+    <dimen name="dimen_30">30dp</dimen>
+    <dimen name="dimen_40">40dp</dimen>
+    <dimen name="dimen_50">50dp</dimen>
+
 
     <dimen name="text_size_8">8sp</dimen>
     <dimen name="text_size_9">9sp</dimen>
@@ -36,4 +42,6 @@
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_17">17sp</dimen>
     <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
 </resources>

@@ -6,6 +6,9 @@
         <item name="android:statusBarColor">@color/toolbar_bg_color</item>
         <!--不设置这个toolbar的返回按钮会很怪-->
         <item name="toolbarStyle">@style/CustomToolbar</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
 

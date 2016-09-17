@@ -18,12 +18,10 @@ import com.houxy.days.common.ACache;
  */
 public class BaseActivity extends AppCompatActivity{
 
-    public ACache aCache;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        aCache = ACache.get(getApplication());
     }
 
     public void setStatusBar() {

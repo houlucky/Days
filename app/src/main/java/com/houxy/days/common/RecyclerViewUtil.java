@@ -12,6 +12,7 @@ import android.view.View;
  */
 public class RecyclerViewUtil {
 
+
     /**
      * 设置item间距
      * 使用方法：mRecyclerView.addItemDecoration(new RecyclerViewUtil.SpaceItemDecoration(

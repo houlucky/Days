@@ -97,7 +97,6 @@ public class LoadMoreRecyclerView extends RecyclerView{
      * 获得最大的位置
      */
     private int getMaxPosition(int[] positions) {
-        int size = positions.length;
         int maxPosition = Integer.MIN_VALUE;
         for (int position : positions) {
             maxPosition = Math.max(maxPosition, position);

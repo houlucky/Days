@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -79,6 +81,14 @@ public class TimeUtil {
         return mDateFormat.format(date);
     }
 
+
+    @SuppressLint("SimpleDateFormat")
+    public static String getTime(long time) {
+
+        SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+        return mDateFormat.format(new Date(time));
+    }
+
     public static String converTime(Long time) {
 
         Calendar currentCalendar = Calendar.getInstance();
@@ -108,81 +118,21 @@ public class TimeUtil {
     }
 
     /**
-     * 此方法v表示要设置的控件,v1表示相邻的显示45分钟的时间差
      *
-     * @param activity
-     * @param v
-     * @param v1
-     * @param calendar
+     * @param context 上下文
+     * @return 2016年9月14日 星期三
      */
-    public static void showTimePickerDialog(Activity activity, final View v, final View v1, Calendar calendar) {
-        new TimePickerDialog(activity,
-                // 绑定监听器
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view,
-                                          int hourOfDay, int minute) {
+    public static String getCurrentDate(Context context){
 
-                        int hourTemp = hourOfDay;
-                        int minuteTemp = minute + 45;
-                        if (minuteTemp >= 60) {
-                            minuteTemp -= 60;
-                            hourTemp++;
-                        }
+        Calendar calendar = Calendar.getInstance();
+        return DateUtils.formatDateTime(context,
+                calendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE
+                        | DateUtils.FORMAT_SHOW_WEEKDAY
+                        | DateUtils.FORMAT_SHOW_YEAR
+                        | DateUtils.FORMAT_ABBREV_MONTH
+                        | DateUtils.FORMAT_ABBREV_WEEKDAY);
 
-                        String hourChange = new StringBuilder().append(hourTemp).toString();
-                        String minuteChange = new StringBuilder().append(minuteTemp).toString();
-                        if (hourTemp < 10) {
-                            hourChange = "0" + hourChange;
-                        }
-                        if (minuteTemp < 10) {
-                            minuteChange = "0" + minuteChange;
-                        }
-
-                        if (v1 != null)
-                            ((TextView) v1).setText(hourChange + ":" + minuteChange);
-
-                        String hour = new StringBuilder().append(hourOfDay).toString();
-                        String minutes = new StringBuilder().append(minute).toString();
-                        if (hourOfDay < 10) {
-                            hour = "0" + hour;
-                        }
-                        if (minute < 10) {
-                            minutes = "0" + minutes;
-                        }
-                        ((TextView) v).setHint("");
-                        ((TextView) v).setText(hour + ":" + minutes);
-                    }
-                }
-                // 设置初始时间
-                , calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-                // true表示采用24小时制
-                true).show();
-    }
-
-
-    public static void showDatePickerDialog(Activity activity, final View v, Calendar calendar) {
-        // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
-        new DatePickerDialog(activity,
-                // 绑定监听器
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        String month = new StringBuilder().append(monthOfYear + 1).toString();
-                        String day = new StringBuilder().append(dayOfMonth).toString();
-                        if (monthOfYear < 10) {
-                            month = "0" + month;
-                        }
-                        if (dayOfMonth < 10) {
-                            day = "0" + day;
-                        }
-                        ((TextView) v).setText(year + "年" + month + "月" + day + "日");
-                    }
-                }
-                // 设置初始日期
-                , calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 }
 

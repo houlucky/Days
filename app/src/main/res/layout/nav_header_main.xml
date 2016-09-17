@@ -11,7 +11,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/user_avatar_iv"
+        android:id="@+id/avatar_iv"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="@dimen/margin_15"
@@ -21,20 +21,25 @@
         android:id="@+id/username_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/user_avatar_iv"
+        android:layout_alignTop="@+id/avatar_iv"
         android:layout_marginTop="@dimen/margin_10"
-        android:layout_toEndOf="@+id/user_avatar_iv"
+        android:layout_toEndOf="@+id/avatar_iv"
         android:text="@string/user_name"
-        android:textSize="@dimen/text_size_15" />
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_size_16"
+        />
 
     <TextView
-        android:id="@+id/user_intro_tv"
+        android:id="@+id/motto_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/user_avatar_iv"
+        android:layout_toEndOf="@+id/avatar_iv"
         android:layout_below="@+id/username_tv"
         android:layout_marginTop="@dimen/margin_10"
         android:text="@string/user_intro"
-        android:textSize="@dimen/text_size_11"/>
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/text_size_11"
+        android:singleLine="true"
+        />
 
 </RelativeLayout>

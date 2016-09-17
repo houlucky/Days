@@ -21,4 +21,20 @@
 
     //写日记
     <string name="write_something">写点什么吧~</string>
+    <string name="date">日期</string>
+    <string name="category">分类</string>
+    <string name="category_type">生活</string>
+    <string name="repeat_type">每月一次</string>
+    <string name="sticky">置顶</string>
+    <string name="finish_time">结束时间</string>
+    <string name="record">记录</string>
+    <string name="save">保存</string>
+    <string name="repeat">重复</string>
+    <string name="event_name">事件名称</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="welcome_logo">Welcome</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
 </resources>

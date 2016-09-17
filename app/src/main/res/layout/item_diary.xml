@@ -1,0 +1,88 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:background="@color/defaultWhite"
+    android:layout_marginStart="@dimen/dimen_5"
+    android:layout_marginEnd="@dimen/dimen_5"
+    app:cardCornerRadius="@dimen/dimen_5"
+    app:cardElevation="@dimen/dimen_5"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_15"
+        android:background="@color/defaultWhite"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+
+        <ImageView
+            android:id="@+id/authorAvatar"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:src="@mipmap/default_profile"
+            />
+
+        <TextView
+            android:id="@+id/authorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/authorAvatar"
+            android:text="用户名"
+            android:textColor="#5c5c5c"
+            android:textSize="@dimen/text_size_15"
+            />
+
+
+        <TextView
+            android:id="@+id/authorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/authorName"
+            android:layout_alignTop="@+id/authorName"
+            android:layout_alignBottom="@+id/authorName"
+            android:layout_marginStart="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="houlucky"
+            android:textSize="10sp"
+            android:textColor="#f5973e"
+            android:background="@drawable/shape_user_title"/>
+
+
+        <TextView
+            android:id="@+id/postTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/authorAvatar"
+            android:layout_below="@+id/authorName"
+            android:layout_marginTop="@dimen/margin_5"
+            android:text="9月12日"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="#b3b3b3"
+            />
+
+        <TextView
+            android:id="@+id/diary_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/authorAvatar"
+            android:layout_marginTop="@dimen/margin_15"
+            android:text="测试测试测测试"
+            android:textSize="@dimen/text_size_14"
+            android:textColor="#777777"
+            android:ellipsize="end"
+            android:maxLines="3"
+            />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
