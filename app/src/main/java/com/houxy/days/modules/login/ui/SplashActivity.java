@@ -65,7 +65,10 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable throwable) {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
                 ToastUtils.show(throwable.toString());
+                finish();
             }
 
             @Override

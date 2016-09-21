@@ -1,8 +1,11 @@
 package com.houxy.days.modules.diary.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 
+import com.houxy.days.common.Utils;
 import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
 import com.houxy.days.modules.diary.adapter.holder.DiaryHolder;
 import com.houxy.days.modules.diary.bean.Diary;

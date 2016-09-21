@@ -7,7 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -20,8 +23,10 @@ import android.widget.TextView;
 import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
+import com.houxy.days.base.ToolbarActivity;
 import com.houxy.days.base.i.UpLoadDoneListener;
 import com.houxy.days.common.ACache;
+import com.houxy.days.common.DensityUtil;
 import com.houxy.days.common.DialogUtil;
 import com.houxy.days.common.InsertPicUtil;
 import com.houxy.days.common.TimeUtil;
@@ -39,14 +44,8 @@ import rx.Observer;
 /**
  * Created by Houxy on 2016/9/2.
  */
-public class DiaryEditActivity extends BaseActivity {
+public class DiaryEditActivity extends ToolbarActivity {
 
-    @Bind(R.id.diary_edit_back_ib)
-    ImageButton diaryEditBackIb;
-    @Bind(R.id.diary_edit_toolbar)
-    Toolbar diaryEditToolbar;
-    @Bind(R.id.diary_edit_send_ib)
-    ImageButton diaryEditSendIb;
     @Bind(R.id.diary_edit_content_et)
     EditText diaryEditContentEt;
     @Bind(R.id.diary_edit_add_pic_ib)
@@ -65,16 +64,20 @@ public class DiaryEditActivity extends BaseActivity {
 
 
     @Override
+    protected int provideContentViewId() {
+        return R.layout.activity_diary_edit;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary_edit);
         ButterKnife.bind(this);
-        setSupportActionBar(diaryEditToolbar);
         initView();
     }
 
     private void initView() {
 
+        setToolBarTitle("写日记");
         timeLong = System.currentTimeMillis();
         diaryEditTimeTv.setText(TimeUtil.getTime(timeLong));
 
@@ -89,21 +92,13 @@ public class DiaryEditActivity extends BaseActivity {
                         diaryEditHideSoftInputIb.setVisibility(View.GONE);
                         Utils.hideSoftInput(diaryEditContentEt);
                         break;
-                    case R.id.diary_edit_send_ib:
-                        saveDiary();
-                        break;
-                    case R.id.diary_edit_back_ib:
-                        finish();
-                        break;
                     default:
                         break;
                 }
             }
         };
-        diaryEditBackIb.setOnClickListener(clickListener);
         diaryEditAddPicIb.setOnClickListener(clickListener);
         diaryEditHideSoftInputIb.setOnClickListener(clickListener);
-        diaryEditSendIb.setOnClickListener(clickListener);
 
         diaryEditScrollEdit.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -119,7 +114,7 @@ public class DiaryEditActivity extends BaseActivity {
             @Override
             public void onGlobalLayout() {
                 int heightDiff = diaryEditRl.getRootView().getHeight() - diaryEditRl.getHeight();
-                if (heightDiff > 100) { // if more than 200 dp, it's probably a keyboard...
+                if (heightDiff > DensityUtil.dip2px(DiaryEditActivity.this, 200)) { // if more than 200 dp, it's probably a keyboard...
                     diaryEditHideSoftInputIb.setVisibility(View.VISIBLE);
                 } else {
                     diaryEditHideSoftInputIb.setVisibility(View.GONE);
@@ -129,9 +124,14 @@ public class DiaryEditActivity extends BaseActivity {
     }
 
     private void saveDiary() {
-        String diaryContent = diaryEditContentEt.getText().toString();
+
+        if(TextUtils.isEmpty(diaryEditContentEt.getText().toString())){
+            ToastUtils.show("内容不能为空哦~");
+            return;
+        }
+
         Diary diary = new Diary();
-        diary.setContent(diaryContent);
+        diary.setContent(diaryEditContentEt.getText().toString());
         diary.setPostTime(String.valueOf(timeLong));
         User user = BmobUser.getCurrentUser(User.class);
         diary.setAuthor(user);
@@ -208,5 +208,19 @@ public class DiaryEditActivity extends BaseActivity {
 
         UploadPictureUtil.upLoadPicture(this, uri, observer);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.diary_edit_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_send){
+            saveDiary();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

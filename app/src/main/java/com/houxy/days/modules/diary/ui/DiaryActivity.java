@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
+import com.houxy.days.base.ToolbarActivity;
 import com.houxy.days.common.RecyclerViewUtil;
 import com.houxy.days.common.ToastUtils;
 import com.houxy.days.modules.diary.adapter.DiaryAdapter;
@@ -33,16 +36,15 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Houxy on 2016/9/2.
  */
-public class DiaryActivity extends BaseActivity {
+public class DiaryActivity extends ToolbarActivity {
 
     @Bind(R.id.load_more_recycler_view)
     LoadMoreRecyclerView loadMoreRecyclerView;
     @Bind(R.id.sw_refresh)
     SwipeRefreshLayout swRefresh;
-    @Bind(R.id.back_ib)
-    ImageButton backIb;
     @Bind(R.id.progressBar)
     RelativeLayout progressBar;
+
 
     private DiaryAdapter adapter;
     private int rows = -1; //一共有多少条数据
@@ -50,15 +52,22 @@ public class DiaryActivity extends BaseActivity {
 
 
     @Override
+    protected int provideContentViewId() {
+        return R.layout.activity_diary;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary);
         ButterKnife.bind(this);
         initView();
         loadDiaries(1);
     }
 
     private void initView() {
+
+        setToolBarTitle("我的日记");
+
         adapter = new DiaryAdapter();
         loadMoreRecyclerView.setAdapter(adapter);
         loadMoreRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -78,12 +87,6 @@ public class DiaryActivity extends BaseActivity {
             }
         });
 
-        backIb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         progressBar.setVisibility(View.VISIBLE);
     }
@@ -155,4 +158,5 @@ public class DiaryActivity extends BaseActivity {
                 }).subscribe(observer);
 
     }
+
 }

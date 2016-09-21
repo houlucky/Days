@@ -4,7 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modules.ui.MainActivity">
+    tools:context=".modules.main.ui.MainActivity">
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_action_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:fab_labelStyle="@style/menu_labels_style"
+        app:fab_addButtonColorNormal="@color/colorPrimary"
+        app:fab_addButtonColorPressed="@color/colorPrimaryDark"
+        >
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_action_edit_diary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/ic_dialog_edit"
+            app:fab_colorNormal="@color/toolbar_bg_color"
+            app:fab_colorPressed="@color/fab_btn_pressed_color"
+            app:fab_stroke_visible="false"
+            app:fab_title="写日记"
+            app:fabSize="mini"
+            android:background="@drawable/ripple_btn_bg"
+            />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_action_edit_special_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@mipmap/ic_dialog_anniversary_1"
+            app:fab_colorNormal="@color/toolbar_bg_color"
+            app:fab_colorPressed="@color/fab_btn_pressed_color"
+            app:fab_stroke_visible="false"
+            app:fab_title="纪念日"
+            app:fabSize="mini"
+            />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    <include layout="@layout/content_main" />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -18,43 +56,7 @@
             android:background="@color/toolbar_bg_color"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             />
-        <!--android:paddingTop="@dimen/toolbar_padding_top"-->
-
 
     </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_main" />
-
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/fab_action_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:fab_labelStyle="@style/menu_labels_style"
-        app:fab_addButtonColorNormal="@color/colorPrimary"
-        app:fab_addButtonColorPressed="@color/colorPrimaryDark">
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_action_edit_diary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@mipmap/ic_dialog_edit"
-            app:fab_colorNormal="@color/toolbar_bg_color"
-            app:fab_colorPressed="@color/fab_btn_pressed_color"
-            app:fab_stroke_visible="false"
-            app:fab_title="写日记"
-            />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_action_edit_special_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_icon="@mipmap/ic_dialog_anniversary_1"
-            app:fab_colorNormal="@color/toolbar_bg_color"
-            app:fab_colorPressed="@color/fab_btn_pressed_color"
-            app:fab_stroke_visible="false"
-            app:fab_title="纪念日"
-            />
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>

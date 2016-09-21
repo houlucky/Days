@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -133,6 +134,70 @@ public class TimeUtil {
                         | DateUtils.FORMAT_ABBREV_MONTH
                         | DateUtils.FORMAT_ABBREV_WEEKDAY);
 
+    }
+
+    public static String getAssignDate(Context context,int year, int monthOfYear, int dayOfMonth){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, monthOfYear);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+        return DateUtils.formatDateTime(context,
+                calendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE
+                        | DateUtils.FORMAT_SHOW_WEEKDAY
+                        | DateUtils.FORMAT_SHOW_YEAR
+                        | DateUtils.FORMAT_ABBREV_MONTH
+                        | DateUtils.FORMAT_ABBREV_WEEKDAY);
+
+    }
+
+    /**
+     *
+     * @param date 2016年9月14日星期三 只使用 2016年9月14日
+     * @return calendar
+     * Calendar类中年份的数值直接书写，月份的值为实际的月份值减1，日期的值就是实际的日期值。
+     */
+    public static Calendar getAssignCalendar(String date){
+
+        int year = Integer.valueOf(date.substring(0, date.indexOf("年")));
+        int monthOfYear = Integer.valueOf(date.substring(date.indexOf("年") + 1, date.indexOf("月")));
+        int dayOfMonth = Integer.valueOf(date.substring(date.indexOf("月") + 1, date.indexOf("日")));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, monthOfYear -1, dayOfMonth);
+
+        return calendar;
+    }
+
+
+    public static String getDaysApart(Calendar calendarAssign){
+        long apartTime;
+        Calendar calendar = Calendar.getInstance();
+        if( calendar.getTimeInMillis() > calendarAssign.getTimeInMillis()){
+            apartTime = calendar.getTimeInMillis() - calendarAssign.getTimeInMillis();
+        }else {
+            apartTime = calendarAssign.getTimeInMillis() - calendar.getTimeInMillis() ;
+        }
+        return String.valueOf(apartTime / (1000*3600*24));
+    }
+
+    public static boolean isPastDay(Calendar calendarAssign){
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTimeInMillis()- calendarAssign.getTimeInMillis() > 0 ;
+    }
+
+
+    public static boolean isPastDay(String date){
+
+        int year = Integer.valueOf(date.substring(0, date.indexOf("年")));
+        int monthOfYear = Integer.valueOf(date.substring(date.indexOf("年") + 1, date.indexOf("月")));
+        int dayOfMonth = Integer.valueOf(date.substring(date.indexOf("月") + 1, date.indexOf("日")));
+        Calendar calendarAssign = Calendar.getInstance();
+        calendarAssign.set(year, monthOfYear -1, dayOfMonth);
+
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTimeInMillis()- calendarAssign.getTimeInMillis() > 0 ;
     }
 }
 

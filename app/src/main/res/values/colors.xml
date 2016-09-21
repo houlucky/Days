@@ -7,14 +7,18 @@
     <color name="nav_font_color">#272636</color>
     <color name="transparent">#00000000</color>
     <color name="defaultWhite">#ffffff</color>
-    <color name="btn_pressed">#f5f5f5</color>
+    <color name="btn_pressed">#f0f0f0</color>
 
     <color name="toolbar_bg_color">#3F51B5</color>
     <color name="toolbar_title_color">@color/defaultWhite</color>
 
-    <color name="fab_btn_pressed_color">#4c7bab</color>
+    <color name="fab_btn_pressed_color">#5d76f2</color>
 
     <color name="login_btn_color">#3F51B5</color>
     <color name="login_btn_pressed_color">#4c7bab</color>
 
+    <color name="past_event_bg_color">#F9942C</color>
+    <color name="past_event_bg_color_dark">#F47422</color>
+    <color name="upcoming_event_bg_color">#46A0F2</color>
+    <color name="upcoming_event_bg_color_dark">#3084D0</color>
 </resources>

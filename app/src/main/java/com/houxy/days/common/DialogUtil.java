@@ -28,33 +28,14 @@ public class DialogUtil {
     /**
      *
      * @param activity
-     * @param v
      * @param calendar
      */
-    public static void showDatePickerDialog(Activity activity, final View v, final Calendar calendar) {
-        // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
-        new DatePickerDialog(activity,
-                // 绑定监听器
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, monthOfYear);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                        String time = DateUtils.formatDateTime(view.getContext(),
-                                calendar.getTimeInMillis(),
-                                DateUtils.FORMAT_SHOW_DATE
-                                        | DateUtils.FORMAT_SHOW_WEEKDAY
-                                        | DateUtils.FORMAT_SHOW_YEAR
-                                        | DateUtils.FORMAT_ABBREV_MONTH
-                                        | DateUtils.FORMAT_ABBREV_WEEKDAY);
+    public static void showDatePickerDialog(Activity activity,Calendar calendar, DatePickerDialog.OnDateSetListener dateSetListener) {
 
-                        ((TextView)v).setText(time);
-                    }
-                }
-                // 设置初始日期
-                , calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+
+        // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
+        new DatePickerDialog(activity, dateSetListener
+                , calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), // 设置初始日期
                 calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 

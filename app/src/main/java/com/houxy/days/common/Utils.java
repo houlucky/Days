@@ -1,6 +1,9 @@
 package com.houxy.days.common;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.view.Display;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -22,4 +25,26 @@ public class Utils {
         //2.调用hideSoftInputFromWindow方法隐藏软键盘
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0); //强制隐藏键盘
     }
+
+
+    public static int getScreenHeight(Context c) {
+        WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        return size.y;
+    }
+
+    public static int getScreenWidth(Context c) {
+
+        WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        return size.x;
+    }
+
+
 }

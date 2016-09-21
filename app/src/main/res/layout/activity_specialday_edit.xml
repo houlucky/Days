@@ -2,22 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f5f5f5">
 
-    <include android:id="@+id/event_edit_toolbar"
-        layout="@layout/toolbar_event_edit"
-        />
+    <include layout="@layout/toolbar_with_back" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/event_edit_toolbar"
+        android:layout_below="@+id/app_bar_layout"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             >
 
             <RelativeLayout
@@ -25,16 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_15"
-                android:background="@color/defaultWhite"
+                android:background="@drawable/ripple_rl_bg"
                 >
-                <ImageView
-                    android:id="@+id/event_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/event"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentStart="true"
-                    />
+
 
                 <EditText
                     android:id="@+id/edit_event"
@@ -44,6 +34,14 @@
                     android:layout_marginStart="@dimen/margin_5"
                     android:textSize="@dimen/text_size_15"
                     />
+
+                <ImageView
+                    android:id="@+id/event_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/event"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
 
             <View
@@ -54,12 +52,12 @@
                 />
 
             <RelativeLayout
-                android:id="@+id/edit_event_detail_rl"
+                android:id="@+id/date_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/divider_line_1"
                 android:padding="@dimen/margin_15"
-                android:background="@drawable/btn_bg"
+                android:background="@drawable/ripple_rl_bg"
                 >
                 <ImageView
                     android:id="@+id/date_iv"
@@ -90,7 +88,7 @@
                     android:layout_centerInParent="true"
                     android:textSize="@dimen/text_size_15"
                     android:textColor="@color/colorPrimary"
-                    android:clickable="true"
+                    android:clickable="false"
                     />
 
                 <android.support.v7.widget.SwitchCompat
@@ -111,9 +109,9 @@
                 android:id="@+id/category_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edit_event_detail_rl"
+                android:layout_below="@id/date_rl"
                 android:padding="@dimen/margin_15"
-                android:background="@drawable/btn_bg"
+                android:background="@drawable/ripple_rl_bg"
                 >
 
 
@@ -168,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/category_rl"
                 android:padding="@dimen/margin_15"
-                android:background="@drawable/btn_bg"
+                android:background="@drawable/ripple_rl_bg"
                 >
 
 
@@ -210,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sticky_rl"
                 android:padding="@dimen/margin_15"
-                android:background="@drawable/btn_bg"
+                android:background="@drawable/ripple_rl_bg"
                 >
 
 
@@ -272,7 +270,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/divider_line_2"
                 android:padding="@dimen/margin_15"
-                android:background="@drawable/btn_bg"
+                android:background="@drawable/ripple_rl_bg"
                 >
 
 
@@ -307,7 +305,7 @@
                     />
 
             </RelativeLayout>
-            
+
             <Button
                 android:id="@+id/save_event_btn"
                 android:layout_width="match_parent"
@@ -320,8 +318,9 @@
                 android:text="@string/save"
                 android:textSize="@dimen/text_size_16"
                 android:textColor="@color/defaultWhite"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/ripple_btn_bg"
                 />
+
         </RelativeLayout>
 
     </ScrollView>

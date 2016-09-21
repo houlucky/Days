@@ -5,15 +5,14 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/myDiary"
-        layout="@layout/toolbar_diary"
+        layout="@layout/toolbar_with_back"
         />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sw_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/myDiary"
+        android:layout_below="@+id/app_bar_layout"
         android:layout_marginTop="@dimen/dimen_5"
         >
 
@@ -28,7 +27,7 @@
         layout="@layout/layout_progressbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/myDiary"
+        android:layout_below="@id/app_bar_layout"
         android:layout_centerInParent="true"
         />
 
