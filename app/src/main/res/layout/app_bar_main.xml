@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".modules.main.ui.MainActivity">
 
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_bg_color"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab_action_menu"
         android:layout_width="wrap_content"
@@ -33,7 +57,7 @@
             android:id="@+id/fab_action_edit_special_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_icon="@mipmap/ic_dialog_anniversary_1"
+            app:fab_icon="@mipmap/ic_dialog_anniversary"
             app:fab_colorNormal="@color/toolbar_bg_color"
             app:fab_colorPressed="@color/fab_btn_pressed_color"
             app:fab_stroke_visible="false"
@@ -41,22 +65,5 @@
             app:fabSize="mini"
             />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
-    <include layout="@layout/content_main" />
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/toolbar_bg_color"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            />
-
-    </android.support.design.widget.AppBarLayout>
 
 </android.support.design.widget.CoordinatorLayout>

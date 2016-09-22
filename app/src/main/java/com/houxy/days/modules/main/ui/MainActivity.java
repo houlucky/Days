@@ -1,13 +1,19 @@
 package com.houxy.days.modules.main.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -24,13 +30,19 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
-import com.houxy.days.base.UserModel;
 import com.houxy.days.common.ToastUtils;
 import com.houxy.days.modules.diary.ui.DiaryActivity;
 import com.houxy.days.modules.diary.ui.DiaryEditActivity;
+import com.houxy.days.modules.diary.ui.DiaryFragment;
 import com.houxy.days.modules.login.ui.LoginActivity;
+import com.houxy.days.modules.main.adapter.TabPagerAdapter;
 import com.houxy.days.modules.main.bean.User;
+import com.houxy.days.modules.special.ui.EventFragment;
 import com.houxy.days.modules.special.ui.SpecialDayEditActivity;
+import com.houxy.days.modules.welfare.ui.MeiZhiFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,8 +59,18 @@ public class MainActivity extends BaseActivity
     FloatingActionButton fabActionEditSpecialDay;
     @Bind(R.id.fab_action_menu)
     FloatingActionsMenu fabActionMenu;
+    @Bind(R.id.tabLayout)
+    TabLayout tabLayout;
+    @Bind(R.id.viewPager)
+    ViewPager viewPager;
 
     private User user;
+
+    public static Intent getIntentStartActivity(Context context, int currentItem){
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("CurrentItem", currentItem);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +114,41 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         initNavigationView();
+        initFragments();
 
+    }
+
+
+    private void initFragments() {
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new DiaryFragment());
+        fragments.add(new EventFragment());
+        fragments.add(new MeiZhiFragment());
+        TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), fragments);
+        viewPager.setAdapter(tabPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        for(int i=0; i<fragments.size(); i++){
+                tabLayout.getTabAt(i).setCustomView(getTabView(i));
+        }
+        //这里有点坑
+        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
+
+        //如果是由其他活动结束进入的Main 需要判断他要进入的是哪个fragment
+        if(getIntent().getIntExtra("CurrentItem", -1) != -1){
+            viewPager.setCurrentItem(getIntent().getIntExtra("CurrentItem", -1));
+        }
+    }
+
+
+    private View getTabView(int pos) {
+        int[] resId = { R.drawable.item_tab_diary_selector, R.drawable.item_tab_event_selector, R.drawable.item_tab_welfare_selector};
+
+        View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
+        ImageView iv = (ImageView) view.findViewById(R.id.iv);
+        iv.setImageResource(resId[pos]);
+        return view;
     }
 
     private void initNavigationView() {
@@ -101,14 +157,14 @@ public class MainActivity extends BaseActivity
         if (null != navigationView) {
             navigationView.setNavigationItemSelectedListener(this);
             final View headerLayout = navigationView.getHeaderView(0);
-            TextView mottoTv = (TextView)headerLayout.findViewById(R.id.motto_tv);
-            TextView usernameTv = (TextView)headerLayout.findViewById(R.id.username_tv);
-            ImageView avatarIv =(ImageView) headerLayout.findViewById(R.id.avatar_iv);
+            TextView mottoTv = (TextView) headerLayout.findViewById(R.id.motto_tv);
+            TextView usernameTv = (TextView) headerLayout.findViewById(R.id.username_tv);
+            ImageView avatarIv = (ImageView) headerLayout.findViewById(R.id.avatar_iv);
 
             View.OnClickListener clickListener1 = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    switch (v.getId()){
+                    switch (v.getId()) {
                         case R.id.avatar_iv:
                             ToastUtils.show("头像");
                             break;
@@ -149,11 +205,11 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
-            if(fabActionMenu.isExpanded()){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (fabActionMenu.isExpanded()) {
                 Rect outRect = new Rect();
                 fabActionMenu.getGlobalVisibleRect(outRect);
-                if(!outRect.contains((int) event.getRawX(), (int) event.getRawY()))
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY()))
                     fabActionMenu.collapse();
             }
         }

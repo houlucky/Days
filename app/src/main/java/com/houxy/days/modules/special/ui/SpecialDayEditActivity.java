@@ -2,6 +2,7 @@ package com.houxy.days.modules.special.ui;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SwitchCompat;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
 import com.houxy.days.base.ToolbarActivity;
@@ -23,6 +25,7 @@ import com.houxy.days.common.DialogUtil;
 import com.houxy.days.common.TimeUtil;
 import com.houxy.days.common.ToastUtils;
 import com.houxy.days.modules.main.bean.User;
+import com.houxy.days.modules.main.ui.MainActivity;
 import com.houxy.days.modules.special.bean.SpecialEvent;
 
 import java.util.Calendar;
@@ -165,10 +168,13 @@ public class SpecialDayEditActivity extends ToolbarActivity {
             @Override
             public void onNext(String s) {
                 ToastUtils.show("添加成功");
-//                startActivity(new Intent(SpecialDayEditActivity.this, SpecialDayActivity.class));
-//                finish();
+                Intent intent = MainActivity.getIntentStartActivity(SpecialDayEditActivity.this, C.CurrentItem_Event);
+                startActivity(intent);
+                finish();
             }
         });
+
+
     }
 
 }

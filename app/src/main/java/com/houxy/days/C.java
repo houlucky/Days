@@ -22,4 +22,8 @@ public class C {
     public static final String USERNAME = "username"; //用户账户
     public static final String TRUENAME = "truename"; //真实姓名
     public static final String PASSWORD = "password";
+
+    public static final int CurrentItem_Diary = 0;
+    public static final int CurrentItem_Event = 1;
+    public static final int CurrentItem_MeiZhi = 2;
 }

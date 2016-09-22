@@ -165,6 +165,7 @@ public class TimeUtil {
         int monthOfYear = Integer.valueOf(date.substring(date.indexOf("年") + 1, date.indexOf("月")));
         int dayOfMonth = Integer.valueOf(date.substring(date.indexOf("月") + 1, date.indexOf("日")));
         Calendar calendar = Calendar.getInstance();
+        calendar.clear();
         calendar.set(year, monthOfYear -1, dayOfMonth);
 
         return calendar;
@@ -174,31 +175,33 @@ public class TimeUtil {
     public static String getDaysApart(Calendar calendarAssign){
         long apartTime;
         Calendar calendar = Calendar.getInstance();
-        if( calendar.getTimeInMillis() > calendarAssign.getTimeInMillis()){
-            apartTime = calendar.getTimeInMillis() - calendarAssign.getTimeInMillis();
-        }else {
-            apartTime = calendarAssign.getTimeInMillis() - calendar.getTimeInMillis() ;
-        }
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.clear();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        apartTime = Math.abs(calendar.getTimeInMillis() - calendarAssign.getTimeInMillis());
+
+
         return String.valueOf(apartTime / (1000*3600*24));
     }
 
     public static boolean isPastDay(Calendar calendarAssign){
         Calendar calendar = Calendar.getInstance();
-        return calendar.getTimeInMillis()- calendarAssign.getTimeInMillis() > 0 ;
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        calendar.clear();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        return calendar.getTimeInMillis()  - calendarAssign.getTimeInMillis() > 0 ;
     }
 
-
-    public static boolean isPastDay(String date){
-
-        int year = Integer.valueOf(date.substring(0, date.indexOf("年")));
-        int monthOfYear = Integer.valueOf(date.substring(date.indexOf("年") + 1, date.indexOf("月")));
-        int dayOfMonth = Integer.valueOf(date.substring(date.indexOf("月") + 1, date.indexOf("日")));
-        Calendar calendarAssign = Calendar.getInstance();
-        calendarAssign.set(year, monthOfYear -1, dayOfMonth);
-
-        Calendar calendar = Calendar.getInstance();
-        return calendar.getTimeInMillis()- calendarAssign.getTimeInMillis() > 0 ;
-    }
 }
 
 

@@ -17,14 +17,13 @@
 
         <TextView
             android:id="@+id/event_desc_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="@dimen/margin_10"
             android:text="距离xxx还有"
             android:textSize="@dimen/text_size_20"
-            android:textColor="#777777"
-            android:textStyle="bold"
+            android:textColor="#000000"
             android:ellipsize="end"
             android:maxLines="1"
             />
@@ -47,7 +46,7 @@
             android:id="@+id/end_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_15"
+            android:padding="@dimen/margin_10"
             android:text="天"
             android:textSize="@dimen/text_size_20"
             android:textColor="@color/defaultWhite"

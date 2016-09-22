@@ -25,7 +25,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new DiaryHolder(parent.getContext(), parent);
+        return new EventViewHolder(parent.getContext(), parent);
     }
 
     @Override
