@@ -1,4 +1,4 @@
-package com.houxy.days.common;
+package com.houxy.days.common.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,7 +8,7 @@ import com.houxy.days.C;
 /**
  * Created by Houxy on 2016/9/8.
  */
-public class SharedPreferencesUtil {
+public class SPUtil {
 
     private final static String USER_INFO = "user_info";
     private final static String OTHER_INFO = "other_info";
@@ -18,7 +18,7 @@ public class SharedPreferencesUtil {
     private static Context context;
 
     public static void init(Context context) {
-        SharedPreferencesUtil.context = context;
+        SPUtil.context = context;
     }
 
 
@@ -46,5 +46,15 @@ public class SharedPreferencesUtil {
 
         SharedPreferences preferences = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         return preferences.getString(C.PASSWORD, "");
+    }
+
+    public static void setToken(String token) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(C.TOKEN_HEADER, Context.MODE_PRIVATE).edit();
+        editor.putString(C.TOKEN_HEADER, token);
+    }
+
+    public static String getToken() {
+        SharedPreferences preferences = context.getSharedPreferences(C.TOKEN_HEADER, Context.MODE_PRIVATE);
+        return preferences.getString(C.TOKEN_HEADER, "");
     }
 }

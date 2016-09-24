@@ -1,36 +1,23 @@
-package com.houxy.days.common;
+package com.houxy.days.common.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.houxy.days.C;
 import com.houxy.days.DaysApplication;
-import com.houxy.days.base.i.UpLoadDoneListener;
-import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 
 import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.ProgressCallback;
-import cn.bmob.v3.listener.UploadFileListener;
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
 

@@ -1,16 +1,10 @@
-package com.houxy.days.common;
+package com.houxy.days.common.utils;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.text.format.DateUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.TextView;
-import android.widget.TimePicker;
+
+import com.houxy.days.common.utils.DateFormatUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

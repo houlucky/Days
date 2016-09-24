@@ -7,14 +7,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
-import com.houxy.days.common.ToastUtils;
+import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.main.bean.User;
-import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

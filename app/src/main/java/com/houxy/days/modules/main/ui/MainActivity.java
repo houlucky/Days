@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -30,7 +29,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
-import com.houxy.days.common.ToastUtils;
+import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.diary.ui.DiaryActivity;
 import com.houxy.days.modules.diary.ui.DiaryEditActivity;
 import com.houxy.days.modules.diary.ui.DiaryFragment;
@@ -140,7 +139,6 @@ public class MainActivity extends BaseActivity
             viewPager.setCurrentItem(getIntent().getIntExtra("CurrentItem", -1));
         }
     }
-
 
     private View getTabView(int pos) {
         int[] resId = { R.drawable.item_tab_diary_selector, R.drawable.item_tab_event_selector, R.drawable.item_tab_welfare_selector};

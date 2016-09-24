@@ -5,8 +5,6 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <!--已在代码中设置，不用重复设置-->
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
         <!--不设置这个toolbar的返回按钮会很怪-->
         <item name="toolbarStyle">@style/CustomToolbar</item>
         <item name="colorPrimary">@color/colorPrimary</item>

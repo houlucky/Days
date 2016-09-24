@@ -1,4 +1,4 @@
-package com.houxy.days.common;
+package com.houxy.days.common.utils;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,9 +14,9 @@ import android.widget.EditText;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.houxy.days.DaysApplication;
 import com.houxy.days.R;
 import com.houxy.days.base.ImageHolder;
+import com.houxy.days.common.utils.BitmapUtils;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

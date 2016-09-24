@@ -7,8 +7,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.houxy.days.R;
-import com.houxy.days.common.TimeUtil;
-import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
+import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.modules.diary.bean.Diary;
 import com.houxy.days.modules.main.bean.User;
 import com.zzhoujay.richtext.RichText;
@@ -50,7 +49,6 @@ public class DiaryHolder extends BaseViewHolder {
                 .into(authorAvatar);
 
         postTime.setText(TimeUtil.converTime(Long.valueOf(diary.getPostTime())));
-//        diaryContent.setText(diary.getContent());
         RichText.from(diary.getContent()).into(diaryContent);
         authorName.setText(user.getUsername());
         authorTitle.setText(user.getMotto());

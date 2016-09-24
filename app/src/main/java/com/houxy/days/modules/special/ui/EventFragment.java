@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.houxy.days.R;
 import com.houxy.days.base.BaseFragment;
-import com.houxy.days.common.RecyclerViewUtil;
-import com.houxy.days.common.ToastUtils;
+import com.houxy.days.common.utils.RecyclerViewUtil;
+import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.special.adapter.EventAdapter;
 import com.houxy.days.modules.special.bean.ResultList;
 import com.houxy.days.modules.special.bean.SpecialEvent;

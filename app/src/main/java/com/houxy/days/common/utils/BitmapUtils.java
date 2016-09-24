@@ -1,4 +1,4 @@
-package com.houxy.days.common;
+package com.houxy.days.common.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

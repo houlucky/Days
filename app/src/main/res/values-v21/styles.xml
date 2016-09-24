@@ -2,7 +2,6 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/toolbar_bg_color</item>
         <!--不设置这个toolbar的返回按钮会很怪-->
         <item name="toolbarStyle">@style/CustomToolbar</item>

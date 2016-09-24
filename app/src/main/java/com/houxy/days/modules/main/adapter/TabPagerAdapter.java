@@ -1,15 +1,8 @@
 package com.houxy.days.modules.main.adapter;
 
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
-
-import com.houxy.days.R;
-import com.houxy.days.common.ResUtil;
 
 import java.util.List;
 

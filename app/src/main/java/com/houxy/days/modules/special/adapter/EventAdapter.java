@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
 import com.houxy.days.modules.diary.adapter.holder.DiaryHolder;
 import com.houxy.days.modules.special.bean.SpecialEvent;
+import com.houxy.days.widget.AnimRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((BaseViewHolder)holder).bindData(specialEvents.get(position));
+//        showItemAnim(holder.itemView, position);
     }
 
     @Override

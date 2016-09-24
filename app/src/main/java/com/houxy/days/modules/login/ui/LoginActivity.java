@@ -4,25 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
-import com.houxy.days.common.SharedPreferencesUtil;
-import com.houxy.days.common.ToastUtils;
+import com.houxy.days.common.utils.SPUtil;
+import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.main.bean.User;
 import com.houxy.days.modules.main.ui.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
-import rx.Observer;
 import rx.Subscriber;
 
 /**
@@ -99,8 +94,8 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onNext(User user) {
                 Log.d("TAG", "login_next");
-                SharedPreferencesUtil.setUsername(userName);
-                SharedPreferencesUtil.setPassword(password);
+                SPUtil.setUsername(userName);
+                SPUtil.setPassword(password);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

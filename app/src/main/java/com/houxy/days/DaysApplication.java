@@ -2,7 +2,9 @@ package com.houxy.days;
 
 import android.app.Application;
 
-import com.houxy.days.common.SharedPreferencesUtil;
+import com.facebook.stetho.Stetho;
+import com.houxy.days.common.RetrofitClient;
+import com.houxy.days.common.utils.SPUtil;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -31,7 +33,9 @@ public class DaysApplication extends Application{
         setInstance(this);
         //初始化
         Logger.init("houlucky");
-        SharedPreferencesUtil.init(this);
+        SPUtil.init(this);
+        RetrofitClient.init();
+        Stetho.initializeWithDefaults(this);
         /**
          * 如果存在SD卡则将缓存写入SD卡,否则写入手机内存
          */

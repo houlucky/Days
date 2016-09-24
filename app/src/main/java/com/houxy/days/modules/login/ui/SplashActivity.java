@@ -11,8 +11,8 @@ import android.util.Log;
 import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
-import com.houxy.days.common.SharedPreferencesUtil;
-import com.houxy.days.common.ToastUtils;
+import com.houxy.days.common.utils.SPUtil;
+import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.main.bean.User;
 import com.houxy.days.modules.main.ui.MainActivity;
 
@@ -32,8 +32,8 @@ public class SplashActivity extends BaseActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(!TextUtils.isEmpty(SharedPreferencesUtil.getUsername()) && !TextUtils.isEmpty(SharedPreferencesUtil.getPassword()) ){
-                    login( SharedPreferencesUtil.getUsername(), SharedPreferencesUtil.getPassword());
+                if(!TextUtils.isEmpty(SPUtil.getUsername()) && !TextUtils.isEmpty(SPUtil.getPassword()) ){
+                    login( SPUtil.getUsername(), SPUtil.getPassword());
                 }else {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);

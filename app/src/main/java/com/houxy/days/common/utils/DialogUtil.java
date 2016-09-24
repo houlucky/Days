@@ -1,23 +1,14 @@
-package com.houxy.days.common;
+package com.houxy.days.common.utils;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.text.format.DateUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.houxy.days.C;
+import com.houxy.days.common.utils.UploadPictureUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Houxy on 2016/9/13.

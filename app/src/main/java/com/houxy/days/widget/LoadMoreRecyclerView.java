@@ -219,7 +219,11 @@ public class LoadMoreRecyclerView extends RecyclerView{
             if (status != LOAD_FAIL || isLoadingMore) {
                 currentStatus = status;
             }
-            autoLoadAdapter.notifyDataSetChanged();
+
+//            autoLoadAdapter.notifyDataSetChanged();
+            //以前使用的全局更新会造成图片闪动
+            //现在只有最后一个才闪动
+            autoLoadAdapter.notifyItemInserted(getLastVisiblePosition() + 1 + 1);
             isLoadingMore = false;
         }
     }

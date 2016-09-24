@@ -9,6 +9,7 @@ import com.houxy.days.common.Utils;
 import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
 import com.houxy.days.modules.diary.adapter.holder.DiaryHolder;
 import com.houxy.days.modules.diary.bean.Diary;
+import com.houxy.days.widget.AnimRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by Houxy on 2016/9/2.
  */
-public class DiaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DiaryAdapter extends AnimRecyclerViewAdapter {
 
     private ArrayList<Diary> diaryList;
 
@@ -35,6 +36,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((BaseViewHolder)holder).bindData(diaryList.get(position));
+//        showItemAnim(holder.itemView, position);
     }
 
     @Override
@@ -53,6 +55,7 @@ public class DiaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
 
     public ArrayList<Diary> getDiaryList() {
+        
         return diaryList;
     }
 }
