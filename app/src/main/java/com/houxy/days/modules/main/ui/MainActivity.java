@@ -2,8 +2,8 @@ package com.houxy.days.modules.main.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -25,8 +25,6 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
 import com.houxy.days.common.utils.ToastUtils;
@@ -36,6 +34,7 @@ import com.houxy.days.modules.diary.ui.DiaryFragment;
 import com.houxy.days.modules.login.ui.LoginActivity;
 import com.houxy.days.modules.main.adapter.TabPagerAdapter;
 import com.houxy.days.modules.main.bean.User;
+import com.houxy.days.modules.main.listener.FabSwitchAnimation;
 import com.houxy.days.modules.special.ui.EventFragment;
 import com.houxy.days.modules.special.ui.SpecialDayEditActivity;
 import com.houxy.days.modules.welfare.ui.MeiZhiFragment;
@@ -52,20 +51,22 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Bind(R.id.fab_action_edit_diary)
-    FloatingActionButton fabActionEditDiary;
-    @Bind(R.id.fab_action_edit_special_day)
-    FloatingActionButton fabActionEditSpecialDay;
-    @Bind(R.id.fab_action_menu)
-    FloatingActionsMenu fabActionMenu;
+    //    @Bind(R.id.fab_action_edit_diary)
+//    FloatingActionButton fabActionEditDiary;
+//    @Bind(R.id.fab_action_edit_special_day)
+//    FloatingActionButton fabActionEditSpecialDay;
+//    @Bind(R.id.fab_action_menu)
+//    FloatingActionsMenu fabActionMenu;
     @Bind(R.id.tabLayout)
     TabLayout tabLayout;
     @Bind(R.id.viewPager)
     ViewPager viewPager;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
 
     private User user;
 
-    public static Intent getIntentStartActivity(Context context, int currentItem){
+    public static Intent getIntentStartActivity(Context context, int currentItem) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("CurrentItem", currentItem);
         return intent;
@@ -85,23 +86,23 @@ public class MainActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.fab_action_edit_diary) {
-                    Intent intent = new Intent(MainActivity.this, DiaryEditActivity.class);
-                    startActivity(intent);
-                    fabActionMenu.collapse();
-                } else if (v.getId() == R.id.fab_action_edit_special_day) {
-                    Intent intent = new Intent(MainActivity.this, SpecialDayEditActivity.class);
-                    startActivity(intent);
-                    fabActionMenu.collapse();
-                }
-            }
-        };
-
-        fabActionEditDiary.setOnClickListener(clickListener);
-        fabActionEditSpecialDay.setOnClickListener(clickListener);
+//        View.OnClickListener clickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (v.getId() == R.id.fab_action_edit_diary) {
+//                    Intent intent = new Intent(MainActivity.this, DiaryEditActivity.class);
+//                    startActivity(intent);
+//                    fabActionMenu.collapse();
+//                } else if (v.getId() == R.id.fab_action_edit_special_day) {
+//                    Intent intent = new Intent(MainActivity.this, SpecialDayEditActivity.class);
+//                    startActivity(intent);
+//                    fabActionMenu.collapse();
+//                }
+//            }
+//        };
+//
+//        fabActionEditDiary.setOnClickListener(clickListener);
+//        fabActionEditSpecialDay.setOnClickListener(clickListener);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -119,6 +120,11 @@ public class MainActivity extends BaseActivity
 
 
     private void initFragments() {
+
+
+        View.OnClickListener[] onClickListeners = {};
+
+
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new DiaryFragment());
         fragments.add(new EventFragment());
@@ -126,22 +132,58 @@ public class MainActivity extends BaseActivity
         TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(tabPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(final TabLayout.Tab tab) {
+                FabSwitchAnimation.start(fab, tab.getPosition());
+                View.OnClickListener onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        switch (tab.getPosition()){
+                            case 0:
+                                Intent intent = new Intent(MainActivity.this, DiaryEditActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 1:
+                                Intent intent1 = new Intent(MainActivity.this, SpecialDayEditActivity.class);
+                                startActivity(intent1);
+                                break;
+                            case 2:
+                                ToastUtils.show("美美哒~");
+                                break;
+                            default:break;
+                        }
+                    }
+                };
+                fab.setOnClickListener(onClickListener);
+            }
 
-        for(int i=0; i<fragments.size(); i++){
-                tabLayout.getTabAt(i).setCustomView(getTabView(i));
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        for (int i = 0; i < fragments.size(); i++) {
+            tabLayout.getTabAt(i).setCustomView(getTabView(i));
         }
         //这里有点坑
         viewPager.setCurrentItem(1);
         viewPager.setCurrentItem(0);
 
         //如果是由其他活动结束进入的Main 需要判断他要进入的是哪个fragment
-        if(getIntent().getIntExtra("CurrentItem", -1) != -1){
+        if (getIntent().getIntExtra("CurrentItem", -1) != -1) {
             viewPager.setCurrentItem(getIntent().getIntExtra("CurrentItem", -1));
         }
     }
 
     private View getTabView(int pos) {
-        int[] resId = { R.drawable.item_tab_diary_selector, R.drawable.item_tab_event_selector, R.drawable.item_tab_welfare_selector};
+        int[] resId = {R.drawable.item_tab_diary_selector, R.drawable.item_tab_event_selector, R.drawable.item_tab_welfare_selector};
 
         View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
         ImageView iv = (ImageView) view.findViewById(R.id.iv);
@@ -203,14 +245,14 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (fabActionMenu.isExpanded()) {
-                Rect outRect = new Rect();
-                fabActionMenu.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY()))
-                    fabActionMenu.collapse();
-            }
-        }
+//        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//            if (fabActionMenu.isExpanded()) {
+//                Rect outRect = new Rect();
+//                fabActionMenu.getGlobalVisibleRect(outRect);
+//                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY()))
+//                    fabActionMenu.collapse();
+//            }
+//        }
         return super.dispatchTouchEvent(event);
     }
 

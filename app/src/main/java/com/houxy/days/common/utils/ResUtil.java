@@ -1,5 +1,6 @@
 package com.houxy.days.common.utils;
 
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -23,5 +24,9 @@ public class ResUtil {
     }
     public static String getString(@StringRes int id){
         return DaysApplication.getContext().getString(id);
+    }
+
+    public static ColorStateList getColorStateList(@ColorRes int id){
+        return ColorStateList.valueOf(getColor(id));
     }
 }

@@ -78,10 +78,18 @@ public class MeiZhiFragment extends BaseFragment {
         swRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadMeiZhi(1);
+                swRefresh.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadMeiZhi(1);
+                    }
+                }, 1000);
             }
         });
-
+        swRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         progressBar.setVisibility(View.VISIBLE);
 

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.houxy.days.R;
 import com.houxy.days.base.BaseFragment;
+import com.houxy.days.common.ACache;
 import com.houxy.days.common.utils.RecyclerViewUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.special.adapter.EventAdapter;
@@ -71,12 +72,24 @@ public class EventFragment extends BaseFragment {
         swRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadEvent(1);
+                swRefresh.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadEvent(1);
+                    }
+                }, 1000);
             }
         });
-
+        swRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         progressBar.setVisibility(View.VISIBLE);
+
+
+
+
     }
 
     private void loadEvent(final int page) {

@@ -65,7 +65,7 @@
                     android:id="@+id/date_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/date_0"
+                    android:src="@mipmap/date"
                     android:layout_centerInParent="true"
                     android:layout_alignParentStart="true"
                     />

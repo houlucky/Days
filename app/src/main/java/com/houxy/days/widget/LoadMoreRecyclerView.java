@@ -105,7 +105,7 @@ public class LoadMoreRecyclerView extends RecyclerView{
     }
 
 
-    class AutoLoadAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    class AutoLoadAdapter extends AnimRecyclerViewAdapter {
 
         private RecyclerView.Adapter adapter;
 
@@ -155,6 +155,7 @@ public class LoadMoreRecyclerView extends RecyclerView{
             } else {
                 adapter.onBindViewHolder(holder, position);
             }
+//            showItemAnim(holder.itemView, position);
         }
 
         @Override

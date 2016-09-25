@@ -43,8 +43,8 @@ import java.util.concurrent.atomic.AtomicLong;
         * //TODO 缓存逻辑的单例优化
         */
 public class ACache {
-    public static final int TIME_HOUR = 60 * 60;
-    public static final int TIME_DAY = TIME_HOUR * 24;
+    private static final int TIME_HOUR = 60 * 60;
+    private static final int TIME_DAY = TIME_HOUR * 24;
     private static final int MAX_SIZE = 1000 * 1000 * 50; // 50 mb
     private static final int MAX_COUNT = Integer.MAX_VALUE; // 不限制存放数据的数量
 //    private static Map<String, ACache> mInstanceMap = new HashMap<String, ACache>(); // 这个可以不用了
@@ -63,7 +63,7 @@ public class ACache {
     }
 
     private static class SingletonHolder {
-        public static final ACache sInstance = new ACache();
+        private static final ACache sInstance = new ACache();
     }
 
     public static ACache getDefault() {

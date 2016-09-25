@@ -77,10 +77,18 @@ public class DiaryFragment extends BaseFragment {
         swRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadDiaries(1);
+                swRefresh.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadDiaries(1);
+                    }
+                }, 1000);
             }
         });
-
+        swRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         progressBar.setVisibility(View.VISIBLE);
     }
