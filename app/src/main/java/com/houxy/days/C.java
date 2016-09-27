@@ -15,18 +15,21 @@ public class C {
     public static final String SAVE_PATH = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ?
             Environment.getExternalStorageDirectory().getAbsolutePath() : "/mnt/sdcard";//保存到SD卡;
 
-    public static final String DEFAULT_DIARY_CACHE = "cache/diary/";
-    public static final String DEFAULT_DAYS_CACHE = "cache/days/";
-    public static final String DEFAULT_IMAGE_CACHE = "/days/image/";
+    public static final String DIARY_CACHE = "days/diary/";
+    public static final String EVENT_CACHE = "days/event/";
+    public static final String IMAGE_CACHE = "days/image/";
+    public static final String MEIZHI_CACHE = "days/meizhi/";
 
     public static final String USERNAME = "username"; //用户账户
     public static final String TRUENAME = "truename"; //真实姓名
     public static final String PASSWORD = "password";
-
-    public static final int CurrentItem_Diary = 0;
-    public static final int CurrentItem_Event = 1;
-    public static final int CurrentItem_MeiZhi = 2;
-
     public static final String TOKEN_HEADER = "Authorization";
-    public static final String CACHEPATH = "DaysCache";
+    public static final String HAS_MEIZHI_CACHE = "";
+
+//    public static final int CurrentItem_Diary = 0;
+//    public static final int CurrentItem_Event = 1;
+//    public static final int CurrentItem_MeiZhi = 2;
+
+    public static final String CACHE_PATH = "DaysCache";
+    public static final String SP_DATA = "sp_data";
 }

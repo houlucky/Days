@@ -111,7 +111,7 @@ public class RetrofitClient {
         };
 
         // 缓存 http://www.jianshu.com/p/93153b34310e
-        File cacheFile = new File(DaysApplication.cacheDir, C.CACHEPATH);
+        File cacheFile = new File(DaysApplication.cacheDir, C.CACHE_PATH);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = new Interceptor() {
             @Override

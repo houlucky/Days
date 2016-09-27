@@ -8,6 +8,9 @@
     <string name="action_send">发送</string>
 
     <string name="no_more">没有更多了~</string>
+    <string name="no_diary">没有日志</string>
+    <string name="no_event">没有事件</string>
+    <string name="no_meizhi">没有妹子</string>
 
     <string name="i_know">知道了</string>
     <string name="nav_sign_in">登录</string>

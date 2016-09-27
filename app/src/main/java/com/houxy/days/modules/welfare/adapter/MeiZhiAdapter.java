@@ -39,7 +39,7 @@ public class MeiZhiAdapter extends RecyclerView.Adapter{
     }
 
 
-    public void setEventList(List<MeiZhi> meiZhiList) {
+    public void setMeiZhiList(List<MeiZhi> meiZhiList) {
         if( null != meiZhiList){
             for(MeiZhi meiZhi: meiZhiList){
                 this.meiZhis.add(meiZhi);
@@ -48,7 +48,7 @@ public class MeiZhiAdapter extends RecyclerView.Adapter{
     }
 
 
-    public ArrayList<MeiZhi> getEventList() {
+    public ArrayList<MeiZhi> getMeiZhiList() {
         return meiZhis;
     }
 }

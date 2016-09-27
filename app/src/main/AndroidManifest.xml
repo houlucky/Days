@@ -39,7 +39,7 @@
         <activity android:name=".modules.diary.ui.DiaryActivity"/>
         <activity android:name=".modules.diary.ui.DiaryEditActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".modules.special.ui.SpecialDayEditActivity"/>
+        <activity android:name=".modules.special.ui.EventEditActivity"/>
         <activity android:name=".modules.login.ui.LoginActivity"
             />
 

@@ -2,8 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/margin_5"
     >
+
+    <!--<android.support.v4.widget.SwipeRefreshLayout-->
+        <!--android:id="@+id/sw_refresh"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/dimen_5"-->
+        <!--&gt;-->
+
+        <!--<com.houxy.days.widget.LoadMoreRecyclerView-->
+            <!--android:id="@+id/load_more_recycler_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+    <!--</android.support.v4.widget.SwipeRefreshLayout>-->
+
+    <!--<include-->
+        <!--layout="@layout/layout_progressbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--/>-->
+
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sw_refresh"
@@ -12,18 +34,39 @@
         android:layout_marginTop="@dimen/dimen_5"
         >
 
-        <com.houxy.days.widget.LoadMoreRecyclerView
-            android:id="@+id/load_more_recycler_view"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <include
-        layout="@layout/layout_progressbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        />
+
+    <RelativeLayout
+        android:id="@+id/empty_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/empty_iv"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/no_event"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empty_iv"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:text="@string/no_event"
+            android:textColor="#777777"
+            android:textSize="@dimen/text_size_14"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>

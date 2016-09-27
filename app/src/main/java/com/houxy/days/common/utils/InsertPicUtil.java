@@ -6,17 +6,22 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.houxy.days.R;
 import com.houxy.days.base.ImageHolder;
+import com.houxy.days.common.ACache;
 import com.houxy.days.common.utils.BitmapUtils;
+import com.orhanobut.logger.Logger;
+import com.zzhoujay.richtext.RichText;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -71,7 +76,7 @@ public class InsertPicUtil {
     }
 
 
-    public static void setRichText(String text, final EditText editText) {
+    public static void setRichText1NetWork(String text, final EditText editText) {
         ArrayList<ImageHolder> imageHolders = new ArrayList<>();
         editText.setText("");
         editText.getText().append(text);
@@ -116,6 +121,33 @@ public class InsertPicUtil {
                     .asBitmap()
                     .placeholder(R.mipmap.default_profile)
                     .into(simpleTarget);
+        }
+    }
+
+    public static void setRichTextLocal(String text, EditText editText) {
+        ArrayList<ImageHolder> imageHolders = new ArrayList<>();
+        editText.setText(text);
+        //遍历查找
+        Matcher imageMatcher;
+        imageMatcher = IMAGE_TAG_PATTERN.matcher(text);
+        while (imageMatcher.find()) {
+            String image = imageMatcher.group().trim();
+            int matchStringStartIndex = text.indexOf(image);
+            int matchStringEndIndex = matchStringStartIndex + image.length();
+            ImageHolder imageHolder = new ImageHolder(image, matchStringStartIndex, matchStringEndIndex);
+            imageHolders.add(imageHolder);
+        }
+
+        for (int i = 0; i < imageHolders.size(); i++) {
+            ImageHolder imageHolder = imageHolders.get(i);
+            String url = imageHolder.getUrl();
+            SpannableString picSs = new SpannableString(url);
+            Bitmap pic = ACache.getDefault().getAsBitmap(url);
+            ImageSpan span = new ImageSpan(editText.getContext(), pic);
+            picSs.setSpan(span, 0, url.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            int index = imageHolder.getStartIndex();
+            editText.getText().delete(index, imageHolder.getEndIndex());
+            editText.getText().insert(index, picSs);
         }
     }
 

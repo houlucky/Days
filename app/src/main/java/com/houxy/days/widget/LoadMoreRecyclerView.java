@@ -139,7 +139,7 @@ public class LoadMoreRecyclerView extends RecyclerView{
         public void onBindViewHolder(ViewHolder holder, int position) {
             if (getItemViewType(position) == TYPE_FOOT) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
-                if (currentStatus == NO_MORE) {
+                if (currentStatus == NO_MORE && position > 0) {
                     footerViewHolder.load.setVisibility(View.GONE);
                     footerViewHolder.loadFail.setVisibility(View.GONE);
                     footerViewHolder.noMore.setVisibility(View.VISIBLE);
@@ -147,7 +147,7 @@ public class LoadMoreRecyclerView extends RecyclerView{
                     footerViewHolder.load.setVisibility(View.VISIBLE);
                     footerViewHolder.loadFail.setVisibility(View.GONE);
                     footerViewHolder.noMore.setVisibility(View.GONE);
-                } else {
+                } else if(currentStatus == LOAD_FAIL){
                     footerViewHolder.load.setVisibility(View.GONE);
                     footerViewHolder.loadFail.setVisibility(View.VISIBLE);
                     footerViewHolder.noMore.setVisibility(View.GONE);
@@ -155,7 +155,6 @@ public class LoadMoreRecyclerView extends RecyclerView{
             } else {
                 adapter.onBindViewHolder(holder, position);
             }
-//            showItemAnim(holder.itemView, position);
         }
 
         @Override

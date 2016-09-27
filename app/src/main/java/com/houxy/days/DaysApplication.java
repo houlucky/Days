@@ -33,7 +33,6 @@ public class DaysApplication extends Application{
         setInstance(this);
         //初始化
         Logger.init("houlucky");
-        SPUtil.init(this);
         RetrofitClient.init();
         Stetho.initializeWithDefaults(this);
         /**

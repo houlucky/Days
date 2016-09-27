@@ -3,10 +3,15 @@ package com.houxy.days.modules.diary.ui;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +27,8 @@ import android.widget.TextView;
 import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.ToolbarActivity;
+import com.houxy.days.common.ACache;
+import com.houxy.days.common.utils.BitmapUtils;
 import com.houxy.days.common.utils.DensityUtil;
 import com.houxy.days.common.utils.DialogUtil;
 import com.houxy.days.common.utils.InsertPicUtil;
@@ -31,6 +38,9 @@ import com.houxy.days.common.utils.UploadPictureUtil;
 import com.houxy.days.common.Utils;
 import com.houxy.days.modules.diary.bean.Diary;
 import com.houxy.days.modules.main.bean.User;
+import com.houxy.days.modules.main.ui.MainActivity;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,7 +53,7 @@ import rx.Observer;
 public class DiaryEditActivity extends ToolbarActivity {
 
     @Bind(R.id.diary_edit_content_et)
-    EditText diaryEditContentEt;
+    EditText editText;
     @Bind(R.id.diary_edit_add_pic_ib)
     ImageButton diaryEditAddPicIb;
     @Bind(R.id.diary_edit_hideSoftInput_ib)
@@ -86,7 +96,7 @@ public class DiaryEditActivity extends ToolbarActivity {
                         break;
                     case R.id.diary_edit_hideSoftInput_ib:
                         diaryEditHideSoftInputIb.setVisibility(View.GONE);
-                        Utils.hideSoftInput(diaryEditContentEt);
+                        Utils.hideSoftInput(editText);
                         break;
                     default:
                         break;
@@ -100,7 +110,7 @@ public class DiaryEditActivity extends ToolbarActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Utils.hideSoftInput(diaryEditContentEt);
+                    Utils.hideSoftInput(editText);
                     diaryEditHideSoftInputIb.setVisibility(View.GONE);
                 }
                 return false;
@@ -121,34 +131,48 @@ public class DiaryEditActivity extends ToolbarActivity {
 
     private void saveDiary() {
 
-        if(TextUtils.isEmpty(diaryEditContentEt.getText().toString())){
+        if(TextUtils.isEmpty(editText.getText().toString())){
             ToastUtils.show("内容不能为空哦~");
             return;
         }
 
         Diary diary = new Diary();
-        diary.setContent(diaryEditContentEt.getText().toString());
+        diary.setContent(editText.getText().toString());
         diary.setPostTime(String.valueOf(timeLong));
-        User user = BmobUser.getCurrentUser(User.class);
-        diary.setAuthor(user);
-        diary.saveObservable().subscribe(new Observer<String>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-
-            }
-
-            @Override
-            public void onNext(String s) {
-                ToastUtils.show("添加成功");
-                startActivity(new Intent(DiaryEditActivity.this, DiaryActivity.class));
-                finish();
-            }
-        });
+        diary.setAuthor(User.getCurrentUser(User.class));
+        ArrayList<Diary> diaries;
+        if( null != ACache.getDefault().getAsObject(C.DIARY_CACHE)){
+            diaries = (ArrayList<Diary>) ACache.getDefault().getAsObject(C.DIARY_CACHE);
+        }else {
+            diaries = new ArrayList<>();
+        }
+        if(diaries.add(diary)){
+            ACache.getDefault().put(C.DIARY_CACHE, diaries);
+            ToastUtils.show("添加成功");
+            finish();
+        }else {
+            ToastUtils.show("添加失败");
+        }
+//        User user = BmobUser.getCurrentUser(User.class);
+//        diary.setAuthor(user);
+//        diary.saveObservable().subscribe(new Observer<String>() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable throwable) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(String s) {
+//                ToastUtils.show("添加成功");
+//                startActivity(new Intent(DiaryEditActivity.this, DiaryActivity.class));
+//                finish();
+//            }
+//        });
     }
 
     public void showProgressDialog() {
@@ -167,12 +191,12 @@ public class DiaryEditActivity extends ToolbarActivity {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case C.PICK_FROM_CAMERA:
-                    showProgressDialog();
-                    UploadPicture(UploadPictureUtil.cameraUri);
+//                    UploadPicture(UploadPictureUtil.cameraUri);
+                    setPicture(UploadPictureUtil.cameraUri);
                     break;
                 case C.PICK_FROM_FILE:
-                    showProgressDialog();
-                    UploadPicture(data.getData());
+//                    UploadPicture(data.getData());
+                    setPicture(data.getData());
                     break;
                 default:
                     break;
@@ -196,7 +220,7 @@ public class DiaryEditActivity extends ToolbarActivity {
 
             @Override
             public void onNext(String imageUrl) {
-                InsertPicUtil.upDateEditText(uri,imageUrl, diaryEditContentEt);
+                InsertPicUtil.upDateEditText(uri,imageUrl, editText);
                 progressDialog.dismiss();
             }
 
@@ -204,6 +228,30 @@ public class DiaryEditActivity extends ToolbarActivity {
 
         UploadPictureUtil.upLoadPicture(this, uri, observer);
 
+    }
+
+    public void setPicture(Uri uri){
+        int editTextWidth = editText.getWidth() - editText.getPaddingRight() - editText.getPaddingLeft();
+        String spanName = C.IMAGE_CACHE + "img_" + TimeUtil.getNowYMDHMSTime();
+        spanName = "<img src=\"" + spanName + "\" />";
+        Bitmap pic = BitmapUtils.compressImage(uri, DiaryEditActivity.this, editTextWidth);
+        ACache.getDefault().put(spanName, pic);
+
+        SpannableString picSs = new SpannableString(spanName);
+        ImageSpan span = new ImageSpan(DiaryEditActivity.this, pic);
+        picSs.setSpan(span, 0, spanName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        int index = editText.getSelectionStart();
+        Editable editable = editText.getEditableText();
+
+        if (index < 0 || index >= editable.length()) {
+            editable.append("\n");
+            editable.append(picSs);
+            editable.append("\n\n");
+        } else {
+            editable.insert(index, "\n");
+            editable.insert(index, picSs);
+        }
     }
 
     @Override

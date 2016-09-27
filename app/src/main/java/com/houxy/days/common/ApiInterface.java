@@ -3,6 +3,7 @@ package com.houxy.days.common;
 import com.houxy.days.modules.welfare.bean.MeiZhi;
 import com.houxy.days.modules.welfare.bean.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.http.GET;

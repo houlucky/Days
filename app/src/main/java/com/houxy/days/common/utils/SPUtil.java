@@ -1,60 +1,58 @@
 package com.houxy.days.common.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.houxy.days.C;
+import com.houxy.days.DaysApplication;
 
 /**
  * Created by Houxy on 2016/9/8.
  */
 public class SPUtil {
 
-    private final static String USER_INFO = "user_info";
-    private final static String OTHER_INFO = "other_info";
-    private final static String SETTING_INFO = "setting_info";
-    private final static String MESSAGE_INFO = "message_info";
-
-    private static Context context;
-
-    public static void init(Context context) {
-        SPUtil.context = context;
+    public SPUtil() {
+        throw new AssertionError("no instance");
     }
 
+    private static class Holder {
+        private static SharedPreferences sp = DaysApplication.getContext().getSharedPreferences(C.SP_DATA, Activity.MODE_PRIVATE);
+    }
+
+    private static SharedPreferences getSP() {
+        return Holder.sp;
+    }
 
     public static void setUsername(String username) {
-
-        SharedPreferences.Editor editor = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE).edit();
-        editor.putString(C.USERNAME, username);
-        editor.apply();
+        getSP().edit().putString(C.USERNAME, username).apply();
     }
 
     public static String getUsername() {
-
-        SharedPreferences preferences = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
-        return preferences.getString(C.USERNAME, "");
+        return getSP().getString(C.USERNAME, "");
     }
 
     public static void setPassword(String psw) {
-
-        SharedPreferences.Editor editor = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE).edit();
-        editor.putString(C.PASSWORD, psw);
-        editor.apply();
+        getSP().edit().putString(C.PASSWORD, psw).apply();
     }
 
     public static String getPassword() {
-
-        SharedPreferences preferences = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
-        return preferences.getString(C.PASSWORD, "");
+        return getSP().getString(C.PASSWORD, "");
     }
 
     public static void setToken(String token) {
-        SharedPreferences.Editor editor = context.getSharedPreferences(C.TOKEN_HEADER, Context.MODE_PRIVATE).edit();
-        editor.putString(C.TOKEN_HEADER, token);
+        getSP().edit().putString(C.TOKEN_HEADER, token);
     }
 
     public static String getToken() {
-        SharedPreferences preferences = context.getSharedPreferences(C.TOKEN_HEADER, Context.MODE_PRIVATE);
-        return preferences.getString(C.TOKEN_HEADER, "");
+        return getSP().getString(C.TOKEN_HEADER, "");
+    }
+
+    public static void setIsHasMeiZhiCache(boolean hasMeiZhi) {
+        getSP().edit().putBoolean(C.HAS_MEIZHI_CACHE, hasMeiZhi).apply();
+    }
+
+    public static boolean getIsHasMeiZhiCache() {
+        return getSP().getBoolean(C.HAS_MEIZHI_CACHE, false);
     }
 }

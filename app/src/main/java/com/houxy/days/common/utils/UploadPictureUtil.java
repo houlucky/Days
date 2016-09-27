@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.houxy.days.C;
 import com.houxy.days.DaysApplication;
+import com.houxy.days.common.ACache;
 
 import java.io.File;
 import java.io.FileOutputStream;

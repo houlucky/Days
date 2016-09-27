@@ -35,8 +35,8 @@ import com.houxy.days.modules.login.ui.LoginActivity;
 import com.houxy.days.modules.main.adapter.TabPagerAdapter;
 import com.houxy.days.modules.main.bean.User;
 import com.houxy.days.modules.main.listener.FabSwitchAnimation;
+import com.houxy.days.modules.special.ui.EventEditActivity;
 import com.houxy.days.modules.special.ui.EventFragment;
-import com.houxy.days.modules.special.ui.SpecialDayEditActivity;
 import com.houxy.days.modules.welfare.ui.MeiZhiFragment;
 
 import java.util.ArrayList;
@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity
 //                    startActivity(intent);
 //                    fabActionMenu.collapse();
 //                } else if (v.getId() == R.id.fab_action_edit_special_day) {
-//                    Intent intent = new Intent(MainActivity.this, SpecialDayEditActivity.class);
+//                    Intent intent = new Intent(MainActivity.this, EventEditActivity.class);
 //                    startActivity(intent);
 //                    fabActionMenu.collapse();
 //                }
@@ -135,6 +135,7 @@ public class MainActivity extends BaseActivity
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(final TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
                 FabSwitchAnimation.start(fab, tab.getPosition());
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
@@ -145,7 +146,7 @@ public class MainActivity extends BaseActivity
                                 startActivity(intent);
                                 break;
                             case 1:
-                                Intent intent1 = new Intent(MainActivity.this, SpecialDayEditActivity.class);
+                                Intent intent1 = new Intent(MainActivity.this, EventEditActivity.class);
                                 startActivity(intent1);
                                 break;
                             case 2:

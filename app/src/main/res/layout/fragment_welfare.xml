@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/margin_5"
     >
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -19,11 +18,31 @@
             />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <include
-        layout="@layout/layout_progressbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <RelativeLayout
+        android:id="@+id/empty_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        />
+        >
+
+        <ImageView
+            android:id="@+id/empty_iv"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/no_meizi"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empty_iv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_15"
+            android:text="@string/no_meizhi"
+            android:textColor="#777777"
+            android:textSize="@dimen/text_size_15"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>

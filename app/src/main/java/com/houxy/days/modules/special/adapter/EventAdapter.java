@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Houxy on 2016/9/21.
  */
 
-public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class EventAdapter extends AnimRecyclerViewAdapter {
 
     private ArrayList<SpecialEvent> specialEvents;
 
@@ -32,6 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((BaseViewHolder)holder).bindData(specialEvents.get(position));
+        showItemAnim(holder.itemView, position);
     }
 
     @Override

@@ -36,6 +36,7 @@ public class DiaryAdapter extends AnimRecyclerViewAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ((BaseViewHolder)holder).bindData(diaryList.get(position));
+        showItemAnim(holder.itemView, position);
     }
 
     @Override

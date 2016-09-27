@@ -3,10 +3,6 @@ package com.houxy.days.modules.welfare.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,19 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseFragment;
+import com.houxy.days.common.ACache;
 import com.houxy.days.common.RetrofitClient;
 import com.houxy.days.common.utils.RecyclerViewUtil;
+import com.houxy.days.common.utils.SPUtil;
 import com.houxy.days.common.utils.ToastUtils;
+import com.houxy.days.modules.special.adapter.EmptyAdapter;
 import com.houxy.days.modules.special.bean.ResultList;
 import com.houxy.days.modules.welfare.adapter.MeiZhiAdapter;
 import com.houxy.days.modules.welfare.bean.MeiZhi;
 import com.houxy.days.widget.LoadMoreRecyclerView;
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Observable;
@@ -44,9 +44,10 @@ public class MeiZhiFragment extends BaseFragment {
     LoadMoreRecyclerView loadMoreRecyclerView;
     @Bind(R.id.sw_refresh)
     SwipeRefreshLayout swRefresh;
-    @Bind(R.id.progressBar)
-    RelativeLayout progressBar;
     MeiZhiAdapter meiZhiAdapter;
+    EmptyAdapter emptyAdapter;
+    @Bind(R.id.empty_rl)
+    RelativeLayout emptyRl;
     private int rows = -1; //一共有多少条数据
     private int currentPage = 0;
 
@@ -63,9 +64,7 @@ public class MeiZhiFragment extends BaseFragment {
 
     private void initView() {
 
-        meiZhiAdapter = new MeiZhiAdapter();
-        loadMoreRecyclerView.setAdapter(meiZhiAdapter);
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         loadMoreRecyclerView.setLayoutManager(manager);
         loadMoreRecyclerView.addItemDecoration(new RecyclerViewUtil.SpaceItemDecoration(getResources()
                 .getDimensionPixelSize(R.dimen.margin_10)));
@@ -90,8 +89,7 @@ public class MeiZhiFragment extends BaseFragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-        progressBar.setVisibility(View.VISIBLE);
+        swRefresh.setRefreshing(true);
 
     }
 
@@ -100,13 +98,17 @@ public class MeiZhiFragment extends BaseFragment {
         Observer<ResultList<MeiZhi>> meiZhiObserver = new Observer<ResultList<MeiZhi>>() {
             @Override
             public void onCompleted() {
-
+                emptyRl.setVisibility(View.GONE);
             }
 
             @Override
             public void onError(Throwable throwable) {
                 ToastUtils.show(throwable.toString());
-                progressBar.setVisibility(View.GONE);
+                if(null == emptyAdapter){
+                    emptyAdapter = new EmptyAdapter();
+                }
+                loadMoreRecyclerView.setAdapter(emptyAdapter);
+                emptyRl.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -114,14 +116,17 @@ public class MeiZhiFragment extends BaseFragment {
                 if (null != meiZhiList) {
                     currentPage = page;
                     if (currentPage == 1) {
-                        meiZhiAdapter.getEventList().clear();
+                        if( null == meiZhiAdapter){
+                            meiZhiAdapter = new MeiZhiAdapter();
+                        }
+                        loadMoreRecyclerView.setAdapter(meiZhiAdapter);
+                        meiZhiAdapter.getMeiZhiList().clear();
+
                     }
-                    meiZhiAdapter.setEventList(meiZhiList.list);
+                    meiZhiAdapter.setMeiZhiList(meiZhiList.list);
                     rows = meiZhiList.rows;
                     loadMoreRecyclerView.notifyDataChange(currentPage, rows);
                 }
-
-                progressBar.setVisibility(View.GONE);
             }
         };
 
@@ -149,34 +154,6 @@ public class MeiZhiFragment extends BaseFragment {
                 swRefresh.setRefreshing(false);
             }
         }).subscribe(observer);
-    }
-
-
-    private int getLastVisiblePosition(RecyclerView.LayoutManager layoutManager) {
-        int position;
-        if (layoutManager instanceof LinearLayoutManager) {
-            position = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-        } else if (layoutManager instanceof GridLayoutManager) {
-            position = ((GridLayoutManager) layoutManager).findLastVisibleItemPosition();
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
-            int[] lastPositions = staggeredGridLayoutManager.findLastVisibleItemPositions(new int[staggeredGridLayoutManager.getSpanCount()]);
-            position = getMaxPosition(lastPositions);
-        } else {
-            position = layoutManager.getItemCount() - 1;
-        }
-        return position;
-    }
-
-    /**
-     * 获得最大的位置
-     */
-    private int getMaxPosition(int[] positions) {
-        int maxPosition = Integer.MIN_VALUE;
-        for (int position : positions) {
-            maxPosition = Math.max(maxPosition, position);
-        }
-        return maxPosition;
     }
 
     @Override

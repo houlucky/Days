@@ -17,23 +17,23 @@ import android.widget.TextView;
 import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.ToolbarActivity;
+import com.houxy.days.common.ACache;
 import com.houxy.days.common.utils.DialogUtil;
 import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.common.utils.ToastUtils;
-import com.houxy.days.modules.main.bean.User;
 import com.houxy.days.modules.main.ui.MainActivity;
 import com.houxy.days.modules.special.bean.SpecialEvent;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Subscriber;
 
 /**
  * Created by Houxy on 2016/9/4.
  */
-public class SpecialDayEditActivity extends ToolbarActivity {
+public class EventEditActivity extends ToolbarActivity {
 
     @Bind(R.id.date_tv)
     TextView dateTv;
@@ -87,7 +87,7 @@ public class SpecialDayEditActivity extends ToolbarActivity {
                 switch (v.getId()) {
                     case R.id.repeat_rl:
                         final String[] choices = {"不重复", "每周重复", "每月重复", "每年重复"};
-                        DialogUtil.showSingleChoiceDialog(SpecialDayEditActivity.this, "请选择重复类型", choices, new DialogInterface.OnClickListener() {
+                        DialogUtil.showSingleChoiceDialog(EventEditActivity.this, "请选择重复类型", choices, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 repeatShowTv.setText(choices[which]);
@@ -97,7 +97,7 @@ public class SpecialDayEditActivity extends ToolbarActivity {
                         break;
                     case R.id.category_rl:
                         final String[] choices_1 = {"生活", "纪念日", "工作"};
-                        DialogUtil.showSingleChoiceDialog(SpecialDayEditActivity.this, "请选择重复类型", choices_1, new DialogInterface.OnClickListener() {
+                        DialogUtil.showSingleChoiceDialog(EventEditActivity.this, "请选择重复类型", choices_1, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 categoryShowTv.setText(choices_1[which]);
@@ -107,7 +107,7 @@ public class SpecialDayEditActivity extends ToolbarActivity {
                         break;
                     case R.id.date_rl:
                         Calendar calendar = TimeUtil.getAssignCalendar(dateTv.getText().toString());
-                        DialogUtil.showDatePickerDialog(SpecialDayEditActivity.this, calendar,
+                        DialogUtil.showDatePickerDialog(EventEditActivity.this, calendar,
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -149,27 +149,41 @@ public class SpecialDayEditActivity extends ToolbarActivity {
         specialEvent.setEventCategory(categoryShowTv.getText().toString());
         specialEvent.setDate(dateTv.getText().toString());
         specialEvent.setRepeatType(repeatShowTv.getText().toString());
-        specialEvent.setEventOwner(User.getCurrentUser(User.class));
-        specialEvent.saveObservable().subscribe(new Subscriber<String>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-
-            }
-
-            @Override
-            public void onNext(String s) {
-                ToastUtils.show("添加成功");
-                Intent intent = MainActivity.getIntentStartActivity(SpecialDayEditActivity.this, C.CurrentItem_Event);
-                startActivity(intent);
-                finish();
-            }
-        });
-
+//        specialEvent.setEventOwner(User.getCurrentUser(User.class));
+        ArrayList<SpecialEvent> specialEvents;
+        if( null != ACache.getDefault().getAsObject(C.EVENT_CACHE)){
+            specialEvents = (ArrayList<SpecialEvent>) ACache.getDefault().getAsObject(C.EVENT_CACHE);
+        }else {
+            specialEvents = new ArrayList<>();
+        }
+        if(specialEvents.add(specialEvent)){
+            ACache.getDefault().put(C.EVENT_CACHE, specialEvents);
+            ToastUtils.show("添加成功");
+//            Intent intent = MainActivity.getIntentStartActivity(EventEditActivity.this, C.CurrentItem_Event);
+//            startActivity(intent);
+            finish();
+        }else {
+            ToastUtils.show("添加失败");
+        }
+//        specialEvent.saveObservable().subscribe(new Subscriber<String>() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable throwable) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(String s) {
+//                ToastUtils.show("添加成功");
+//                Intent intent = MainActivity.getIntentStartActivity(EventEditActivity.this, C.CurrentItem_Event);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
 
     }
 
