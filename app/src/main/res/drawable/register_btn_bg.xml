@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="true">
+    <item android:state_pressed="true"
+        >
         <shape>
             <stroke android:color="@color/login_btn_pressed_color"
                 android:width="@dimen/dimen_1"/>
@@ -11,12 +12,6 @@
             <!-- android:radius 弧形的半径 -->
             <corners android:radius="5dp"/>
 
-            <!-- padding：Button里面的文字与Button边界的间隔 -->
-            <!--<padding-->
-                <!--android:left="5dp"-->
-                <!--android:top="5dp"-->
-                <!--android:right="5dp"-->
-                <!--android:bottom="5dp"/>-->
         </shape>
     </item>
 
@@ -30,12 +25,6 @@
             <!-- android:radius 弧形的半径 -->
             <corners android:radius="5dp"/>
 
-            <!-- padding：Button里面的文字与Button边界的间隔 -->
-            <padding
-                android:left="10dp"
-                android:top="10dp"
-                android:right="10dp"
-                android:bottom="10dp"/>
         </shape>
     </item>
 

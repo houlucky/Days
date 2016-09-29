@@ -35,7 +35,6 @@ public class MeiZhiViewHolder extends BaseViewHolder {
         Glide.with(getContext())
                 .load(meiZhi.getUrl())
                 .centerCrop()
-                .crossFade()
                 .into(ivGirl);
         tvTitle.setText(meiZhi.getDesc());
     }

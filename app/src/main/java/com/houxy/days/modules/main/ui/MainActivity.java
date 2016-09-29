@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
-    private User user;
+//    private User user;
 
     public static Intent getIntentStartActivity(Context context, int currentItem) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -77,7 +77,6 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        user = BmobUser.getCurrentUser(User.class);
         initView();
     }
 
@@ -85,7 +84,6 @@ public class MainActivity extends BaseActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 //        View.OnClickListener clickListener = new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -104,7 +102,6 @@ public class MainActivity extends BaseActivity
 //        fabActionEditDiary.setOnClickListener(clickListener);
 //        fabActionEditSpecialDay.setOnClickListener(clickListener);
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -120,10 +117,6 @@ public class MainActivity extends BaseActivity
 
 
     private void initFragments() {
-
-
-        View.OnClickListener[] onClickListeners = {};
-
 
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new DiaryFragment());
@@ -222,24 +215,26 @@ public class MainActivity extends BaseActivity
             mottoTv.setOnClickListener(clickListener1);
             usernameTv.setOnClickListener(clickListener1);
             avatarIv.setOnClickListener(clickListener1);
-
-            Glide.with(this).load(user.getAvatar())
-                    .placeholder(R.mipmap.default_profile)
-                    .bitmapTransform(new CropCircleTransformation(this))
-                    .into(avatarIv);
-            Glide.with(this).load(user.getAvatar())
-                    .error(R.mipmap.default_profile)
-                    .centerCrop()
-                    .bitmapTransform(new BlurTransformation(this))
-                    .priority(Priority.LOW)
-                    .into(new SimpleTarget<GlideDrawable>() {
-                        @Override
-                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                            headerLayout.setBackground(resource);
-                        }
-                    });
-            usernameTv.setText(user.getUsername());
-            mottoTv.setText(user.getMotto());
+            User user = BmobUser.getCurrentUser(User.class);
+            if( null != user){
+                Glide.with(this).load(user.getAvatar())
+                        .placeholder(R.mipmap.default_profile)
+                        .bitmapTransform(new CropCircleTransformation(this))
+                        .into(avatarIv);
+                Glide.with(this).load(user.getAvatar())
+                        .error(R.mipmap.default_profile)
+                        .centerCrop()
+                        .bitmapTransform(new BlurTransformation(this))
+                        .priority(Priority.LOW)
+                        .into(new SimpleTarget<GlideDrawable>() {
+                            @Override
+                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                headerLayout.setBackground(resource);
+                            }
+                        });
+                usernameTv.setText(user.getUsername());
+                mottoTv.setText(user.getMotto());
+            }
         }
 
     }

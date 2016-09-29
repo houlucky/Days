@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
+import com.houxy.days.base.ToolbarActivity;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.main.bean.User;
 
@@ -22,10 +23,8 @@ import rx.Subscriber;
 /**
  * Created by Houxy on 2016/9/5.
  */
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends ToolbarActivity {
 
-    @Bind(R.id.back_ib)
-    ImageButton backIb;
     @Bind(R.id.username_et)
     TextInputEditText usernameEt;
     @Bind(R.id.password_et)
@@ -36,35 +35,28 @@ public class RegisterActivity extends BaseActivity {
     Button registerBtn;
 
     @Override
+    protected int provideContentViewId() {
+        return R.layout.activity_register;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
 
+        setToolBarTitle("注册");
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.register_btn:
-                        register(usernameEt.getText().toString(), passwordEt.getText().toString(),
-                                confirmPasswordEt.getText().toString());
-                        break;
-                    case R.id.back_ib:
-                        finish();
-                        break;
-                    default:
-                        break;
-                }
+                register(usernameEt.getText().toString(), passwordEt.getText().toString(),
+                        confirmPasswordEt.getText().toString());
             }
-        };
-
-        registerBtn.setOnClickListener(onClickListener);
-        backIb.setOnClickListener(onClickListener);
+        });
 
     }
 

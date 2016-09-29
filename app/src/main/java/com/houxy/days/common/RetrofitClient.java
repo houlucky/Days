@@ -168,9 +168,8 @@ public class RetrofitClient {
                 .build();
     }
 
-    public Observable<List<MeiZhi>> getMeiZhi(int page){
-        return apiService.getMeiZhi(page).compose(RxHelper.<Result<List<MeiZhi>>>rxSchedulerHelper())
-                .compose(RxHelper.<List<MeiZhi>>handleResult());
+    public Observable<Result<List<MeiZhi>>> getMeiZhi(int page){
+        return apiService.getMeiZhi(page).compose(RxHelper.<Result<List<MeiZhi>>>rxSchedulerHelper());
     }
 
     public Observable<List<String>> getWelfareCount(){

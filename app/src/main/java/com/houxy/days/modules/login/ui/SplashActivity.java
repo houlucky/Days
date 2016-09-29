@@ -11,6 +11,7 @@ import android.util.Log;
 import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
+import com.houxy.days.common.utils.NetUtil;
 import com.houxy.days.common.utils.SPUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.main.bean.User;
@@ -28,19 +29,19 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         Bmob.initialize(this, C.APP_KEY);
-        Handler handler =new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(!TextUtils.isEmpty(SPUtil.getUsername()) && !TextUtils.isEmpty(SPUtil.getPassword()) ){
-                    login( SPUtil.getUsername(), SPUtil.getPassword());
-                }else {
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+        if(!TextUtils.isEmpty(SPUtil.getUsername()) && !TextUtils.isEmpty(SPUtil.getPassword()) ){
+            if(NetUtil.isNetworkConnected(SplashActivity.this)){
+                login( SPUtil.getUsername(), SPUtil.getPassword());
+            }else {
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
-        }, 10);
+        }else {
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 
@@ -60,14 +61,13 @@ public class SplashActivity extends BaseActivity {
         user.loginObservable(user.getClass()).subscribe(new Subscriber<User>() {
             @Override
             public void onCompleted() {
-                Log.d("TAG", "onCompleted");
+
             }
 
             @Override
             public void onError(Throwable throwable) {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
-                ToastUtils.show(throwable.toString());
                 finish();
             }
 

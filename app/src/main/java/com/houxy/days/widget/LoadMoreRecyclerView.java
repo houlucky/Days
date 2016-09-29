@@ -228,6 +228,7 @@ public class LoadMoreRecyclerView extends RecyclerView{
         }
     }
 
+
     /**
      * 根据当前页面数据和服务器上的数据判断出foot应该的状态
      */
@@ -236,6 +237,20 @@ public class LoadMoreRecyclerView extends RecyclerView{
         int PAGE_SIZE = 10;
 
         if (currentPage * PAGE_SIZE < rows) {
+            return LoadMoreRecyclerView.LOAD;
+        }
+
+        return LoadMoreRecyclerView.NO_MORE;
+    }
+
+
+    public void notifyDataChange(boolean isError){
+        notifyDataChange(isLoadNoMore(isError));
+    }
+
+    public int isLoadNoMore(boolean isError) {
+
+        if (!isError) {
             return LoadMoreRecyclerView.LOAD;
         }
 

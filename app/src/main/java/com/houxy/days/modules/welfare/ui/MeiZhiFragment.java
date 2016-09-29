@@ -22,6 +22,7 @@ import com.houxy.days.modules.special.adapter.EmptyAdapter;
 import com.houxy.days.modules.special.bean.ResultList;
 import com.houxy.days.modules.welfare.adapter.MeiZhiAdapter;
 import com.houxy.days.modules.welfare.bean.MeiZhi;
+import com.houxy.days.modules.welfare.bean.Result;
 import com.houxy.days.widget.LoadMoreRecyclerView;
 import com.orhanobut.logger.Logger;
 
@@ -48,7 +49,7 @@ public class MeiZhiFragment extends BaseFragment {
     EmptyAdapter emptyAdapter;
     @Bind(R.id.empty_rl)
     RelativeLayout emptyRl;
-    private int rows = -1; //一共有多少条数据
+//    private int rows = -1; //一共有多少条数据
     private int currentPage = 0;
 
     @Nullable
@@ -89,15 +90,20 @@ public class MeiZhiFragment extends BaseFragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        swRefresh.setRefreshing(true);
-
+        swRefresh.post(new Runnable() {
+            @Override
+            public void run() {
+                swRefresh.setRefreshing(true);
+            }
+        });
     }
 
     private void loadMeiZhi(final int page) {
 
-        Observer<ResultList<MeiZhi>> meiZhiObserver = new Observer<ResultList<MeiZhi>>() {
+        Observer<Result<List<MeiZhi>>> meiZhiObserver = new Observer<Result<List<MeiZhi>>>() {
             @Override
             public void onCompleted() {
+                Log.d("TAG","5");
                 emptyRl.setVisibility(View.GONE);
             }
 
@@ -106,54 +112,47 @@ public class MeiZhiFragment extends BaseFragment {
                 ToastUtils.show(throwable.toString());
                 if(null == emptyAdapter){
                     emptyAdapter = new EmptyAdapter();
+                    Log.d("TAG","10");
                 }
                 loadMoreRecyclerView.setAdapter(emptyAdapter);
                 emptyRl.setVisibility(View.VISIBLE);
+                Log.d("TAG","11");
             }
 
             @Override
-            public void onNext(ResultList<MeiZhi> meiZhiList) {
-                if (null != meiZhiList) {
+            public void onNext(Result<List<MeiZhi>> meiZhiResult) {
+                if (null != meiZhiResult) {
                     currentPage = page;
                     if (currentPage == 1) {
-                        if( null == meiZhiAdapter){
+//                        RecyclerView empty after SwipeRefreshLayout pull onRefresh event
+                        if(null == loadMoreRecyclerView.getAdapter()){
                             meiZhiAdapter = new MeiZhiAdapter();
+                            loadMoreRecyclerView.setAdapter(meiZhiAdapter);
                         }
-                        loadMoreRecyclerView.setAdapter(meiZhiAdapter);
                         meiZhiAdapter.getMeiZhiList().clear();
-
+                        Log.d("TAG", "2");
                     }
-                    meiZhiAdapter.setMeiZhiList(meiZhiList.list);
-                    rows = meiZhiList.rows;
-                    loadMoreRecyclerView.notifyDataChange(currentPage, rows);
+                    meiZhiAdapter.setMeiZhiList(meiZhiResult.getResults());
+                    loadMoreRecyclerView.notifyDataChange(meiZhiResult.isError());
+                    Log.d("TAG","3");
                 }
+                Log.d("TAG","4");
             }
         };
 
         getMeiZhiFromNetWork(page, meiZhiObserver);
     }
 
-    private void getMeiZhiFromNetWork(int page, Observer<ResultList<MeiZhi>> observer){
+    private void getMeiZhiFromNetWork(int page, Observer<Result<List<MeiZhi>>> observer){
 
-        Observable<List<MeiZhi>> meiZhiObservable = RetrofitClient.getInstance().getMeiZhi(page);
-        Observable<List<String>> welfareCountCountObservable = RetrofitClient.getInstance().getWelfareCount();
-        Observable<ResultList<MeiZhi>> resultListObservable = Observable.zip(meiZhiObservable, welfareCountCountObservable,
-                new Func2<List<MeiZhi>, List<String>, ResultList<MeiZhi>>() {
+        RetrofitClient.getInstance()
+                .getMeiZhi(page)
+                .doOnTerminate(new Action0() {
                     @Override
-                    public ResultList<MeiZhi> call(List<MeiZhi> meiZhis, List<String> stringList) {
-                        ResultList<MeiZhi> resultList = new ResultList<MeiZhi>();
-                        resultList.setList(meiZhis);
-                        resultList.setRows(stringList.size());
-                        return resultList;
+                    public void call() {
+                        swRefresh.setRefreshing(false);
                     }
-                });
-
-        resultListObservable.doOnTerminate(new Action0() {
-            @Override
-            public void call() {
-                swRefresh.setRefreshing(false);
-            }
-        }).subscribe(observer);
+                }).subscribe(observer);
     }
 
     @Override

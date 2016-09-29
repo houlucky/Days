@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/username"
             android:textSize="@dimen/text_size_14"
-            android:singleLine="true"
+            android:maxLines="1"
             />
     </android.support.design.widget.TextInputLayout>
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:textSize="@dimen/text_size_14"
-            android:singleLine="true"
+            android:maxLines="1"
             android:inputType="textPassword"
             />
     </android.support.design.widget.TextInputLayout>
@@ -80,7 +80,7 @@
         android:text="@string/login"
         android:textSize="@dimen/text_size_18"
         android:textColor="@color/defaultWhite"
-        android:background="@drawable/login_btn_bg"
+        android:background="@drawable/ripple_btn_bg"
         />
 
     <Button
