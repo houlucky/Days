@@ -9,6 +9,9 @@ import android.widget.EditText;
 
 import com.houxy.days.DaysApplication;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by Houxy on 2016/9/3.
  */
@@ -27,24 +30,18 @@ public class Utils {
     }
 
 
-    public static int getScreenHeight(Context c) {
-        WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        return size.y;
+    public static String replaceImgHtml(String html) {
+        String pattern = "<img .*?>";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(html);
+        return m.replaceAll("[图片]");
     }
 
-    public static int getScreenWidth(Context c) {
-
-        WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-
-        return size.x;
+    public static String replaceN(String html) {
+        String pattern = "\n";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(html);
+        return m.replaceAll("");
     }
-
 
 }

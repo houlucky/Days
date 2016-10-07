@@ -2,6 +2,7 @@ package com.houxy.days.modules.diary.ui;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -65,9 +66,16 @@ public class DiaryEditActivity extends ToolbarActivity {
     @Bind(R.id.diary_edit_time_tv)
     TextView diaryEditTimeTv;
 
-    ProgressDialog progressDialog;
-    long timeLong;
+    private ProgressDialog progressDialog;
+    private long timeLong;
+    private Diary diary;
 
+    public static Intent getIntentStartActivity(Context context, Diary diary, int position) {
+        Intent intent = new Intent(context, DiaryEditActivity.class);
+        intent.putExtra("diary", diary);
+        intent.putExtra("position", position);
+        return intent;
+    }
 
     @Override
     protected int provideContentViewId() {
@@ -84,8 +92,16 @@ public class DiaryEditActivity extends ToolbarActivity {
     private void initView() {
 
         setToolBarTitle("写日记");
-        timeLong = System.currentTimeMillis();
-        diaryEditTimeTv.setText(TimeUtil.getTime(timeLong));
+
+        diary = (Diary)getIntent().getSerializableExtra("diary");
+        if(null != diary){
+            diaryEditTimeTv.setText(TimeUtil.getTime(Long.valueOf(diary.getPostTime())));
+            InsertPicUtil.setRichTextLocal(diary.getContent(), editText);
+            editText.setSelection(diary.getContent().length());
+        }else {
+            timeLong = System.currentTimeMillis();
+            diaryEditTimeTv.setText(TimeUtil.getTime(timeLong));
+        }
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
@@ -136,23 +152,32 @@ public class DiaryEditActivity extends ToolbarActivity {
             return;
         }
 
-        Diary diary = new Diary();
+        if( null == diary){
+            diary = new Diary();
+            diary.setPostTime(String.valueOf(timeLong));
+            diary.setAuthor(User.getCurrentUser(User.class));
+        }
         diary.setContent(editText.getText().toString());
-        diary.setPostTime(String.valueOf(timeLong));
-        diary.setAuthor(User.getCurrentUser(User.class));
         ArrayList<Diary> diaries;
         if( null != ACache.getDefault().getAsObject(C.DIARY_CACHE)){
             diaries = (ArrayList<Diary>) ACache.getDefault().getAsObject(C.DIARY_CACHE);
         }else {
             diaries = new ArrayList<>();
         }
-        if(diaries.add(diary)){
-            ACache.getDefault().put(C.DIARY_CACHE, diaries);
-            ToastUtils.show("添加成功");
-            finish();
+        int position = getIntent().getIntExtra("position", -1);
+
+        if( position != -1){
+            diaries.remove(position);
+            diaries.add(position, diary);
         }else {
-            ToastUtils.show("添加失败");
+            diaries.add(0, diary);
         }
+        ACache.getDefault().put(C.DIARY_CACHE, diaries);
+        ToastUtils.show("添加成功");
+        Intent intent = new Intent();
+        intent.putExtra("diary", diary);
+        setResult(RESULT_OK, intent);
+        finish();
 //        User user = BmobUser.getCurrentUser(User.class);
 //        diary.setAuthor(user);
 //        diary.saveObservable().subscribe(new Observer<String>() {
@@ -247,7 +272,7 @@ public class DiaryEditActivity extends ToolbarActivity {
         if (index < 0 || index >= editable.length()) {
             editable.append("\n");
             editable.append(picSs);
-            editable.append("\n\n");
+            editable.append("\n");
         } else {
             editable.insert(index, "\n");
             editable.insert(index, picSs);

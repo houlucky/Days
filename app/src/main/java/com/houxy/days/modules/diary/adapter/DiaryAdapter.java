@@ -1,11 +1,9 @@
 package com.houxy.days.modules.diary.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 
-import com.houxy.days.common.Utils;
+import com.houxy.days.base.i.OnItemClickListener;
 import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
 import com.houxy.days.modules.diary.adapter.holder.DiaryHolder;
 import com.houxy.days.modules.diary.bean.Diary;
@@ -20,6 +18,7 @@ import java.util.List;
 public class DiaryAdapter extends AnimRecyclerViewAdapter {
 
     private ArrayList<Diary> diaryList;
+    private OnItemClickListener onItemClickListener;
 
     public DiaryAdapter(){
 
@@ -30,7 +29,7 @@ public class DiaryAdapter extends AnimRecyclerViewAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new DiaryHolder(parent.getContext(), parent);
+        return new DiaryHolder(parent.getContext(), parent, onItemClickListener);
     }
 
     @Override
@@ -55,7 +54,10 @@ public class DiaryAdapter extends AnimRecyclerViewAdapter {
 
 
     public ArrayList<Diary> getDiaryList() {
-        
         return diaryList;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

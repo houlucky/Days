@@ -24,5 +24,15 @@
             android:textColor="@color/toolbar_title_color"
             android:textSize="@dimen/text_size_18" />
 
+        <ImageView
+            android:id="@+id/rightIv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/modify"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_15"
+            android:visibility="gone"
+            />
+
     </android.support.v7.widget.Toolbar>
 </android.support.design.widget.AppBarLayout>

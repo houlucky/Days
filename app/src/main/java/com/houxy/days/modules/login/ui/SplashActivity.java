@@ -30,13 +30,16 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         Bmob.initialize(this, C.APP_KEY);
         if(!TextUtils.isEmpty(SPUtil.getUsername()) && !TextUtils.isEmpty(SPUtil.getPassword()) ){
-            if(NetUtil.isNetworkConnected(SplashActivity.this)){
-                login( SPUtil.getUsername(), SPUtil.getPassword());
-            }else {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+//            if(NetUtil.isNetworkConnected(SplashActivity.this)){
+//                login( SPUtil.getUsername(), SPUtil.getPassword());
+//            }else {
+//                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }else {
             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
             startActivity(intent);

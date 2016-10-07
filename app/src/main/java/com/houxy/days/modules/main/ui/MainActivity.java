@@ -1,6 +1,7 @@
 package com.houxy.days.modules.main.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +29,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
+import com.houxy.days.common.utils.DialogUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.diary.ui.DiaryActivity;
 import com.houxy.days.modules.diary.ui.DiaryEditActivity;
@@ -35,6 +38,7 @@ import com.houxy.days.modules.login.ui.LoginActivity;
 import com.houxy.days.modules.main.adapter.TabPagerAdapter;
 import com.houxy.days.modules.main.bean.User;
 import com.houxy.days.modules.main.listener.FabSwitchAnimation;
+import com.houxy.days.modules.setting.ui.SettingActivity;
 import com.houxy.days.modules.special.ui.EventEditActivity;
 import com.houxy.days.modules.special.ui.EventFragment;
 import com.houxy.days.modules.welfare.ui.MeiZhiFragment;
@@ -190,6 +194,7 @@ public class MainActivity extends BaseActivity
 
         if (null != navigationView) {
             navigationView.setNavigationItemSelectedListener(this);
+            Menu menu = navigationView.getMenu();
             final View headerLayout = navigationView.getHeaderView(0);
             TextView mottoTv = (TextView) headerLayout.findViewById(R.id.motto_tv);
             TextView usernameTv = (TextView) headerLayout.findViewById(R.id.username_tv);
@@ -234,6 +239,13 @@ public class MainActivity extends BaseActivity
                         });
                 usernameTv.setText(user.getUsername());
                 mottoTv.setText(user.getMotto());
+
+                //设置 登录 退出 item 是否可见
+                menu.findItem(R.id.nav_signIn).setVisible(false);
+                menu.findItem(R.id.nav_signOut).setVisible(true);
+            }else {
+                menu.findItem(R.id.nav_signIn).setVisible(true);
+                menu.findItem(R.id.nav_signOut).setVisible(false);
             }
         }
 
@@ -299,10 +311,23 @@ public class MainActivity extends BaseActivity
                 startActivity(intent);
                 break;
             case R.id.nav_setting:
+                Intent settingIntent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(settingIntent);
                 break;
             case R.id.nav_share:
                 break;
             case R.id.nav_signOut:
+                DialogUtil.showDialog(MainActivity.this, "确定退出此账号?", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //TODO.  退出登录后 应该清除缓存
+                        dialog.dismiss();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+                break;
+            default:
                 break;
         }
 

@@ -2,8 +2,10 @@ package com.houxy.days.common.utils;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 
 import com.houxy.days.C;
 import com.houxy.days.common.utils.UploadPictureUtil;
@@ -60,4 +62,12 @@ public class DialogUtil {
         }).create().show();
     }
 
+    public static void showDialog(Activity activity, String title, Dialog.OnClickListener posBtnOnClickListener){
+        new AlertDialog.Builder(activity).setTitle(title).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).setPositiveButton("确定", posBtnOnClickListener).create().show();
+    }
 }

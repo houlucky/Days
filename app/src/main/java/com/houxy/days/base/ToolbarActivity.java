@@ -1,11 +1,19 @@
 package com.houxy.days.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.houxy.days.R;
@@ -52,6 +60,14 @@ public abstract class ToolbarActivity extends BaseActivity{
             titleTv.setText(title);
         }
     }
+
+//    public void setRightButton(@DrawableRes int resId){
+//        ImageView iv = (ImageView) findViewById(R.id.rightIv);
+//        if( null != iv){
+//            iv.setImageResource(resId);
+//            iv.setVisibility(View.VISIBLE);
+//        }
+//    }
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

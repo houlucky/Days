@@ -44,6 +44,9 @@
             />
 
         <activity android:name=".modules.login.ui.RegisterActivity"/>
+        <activity android:name=".modules.setting.ui.SettingActivity"/>
+        <activity android:name=".modules.diary.ui.DiaryDetailActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

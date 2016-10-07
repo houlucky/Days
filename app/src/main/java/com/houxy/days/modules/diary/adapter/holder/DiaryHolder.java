@@ -1,14 +1,18 @@
 package com.houxy.days.modules.diary.adapter.holder;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.houxy.days.R;
+import com.houxy.days.base.i.OnItemClickListener;
+import com.houxy.days.common.Utils;
 import com.houxy.days.common.utils.InsertPicUtil;
 import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.modules.diary.bean.Diary;
+import com.houxy.days.modules.diary.ui.DiaryDetailActivity;
 
 import butterknife.Bind;
 
@@ -21,10 +25,10 @@ public class DiaryHolder extends BaseViewHolder {
     @Bind(R.id.time_tv)
     TextView timeTv;
     @Bind(R.id.diary_content)
-    EditText diaryContent;
+    TextView diaryContent;
 
-    public DiaryHolder(Context context, ViewGroup root) {
-        super(context, root, R.layout.item_recyclerview_diary);
+    public DiaryHolder(Context context, ViewGroup root, OnItemClickListener onItemClickListener) {
+        super(context, root, R.layout.item_recyclerview_diary, onItemClickListener);
     }
 
     @Override
@@ -32,6 +36,6 @@ public class DiaryHolder extends BaseViewHolder {
         Diary diary = (Diary) o;
 
         timeTv.setText(TimeUtil.converTime(Long.valueOf(diary.getPostTime())));
-        InsertPicUtil.setRichTextLocal(diary.getContent(), diaryContent);
+        diaryContent.setText(Utils.replaceN(Utils.replaceImgHtml(diary.getContent())));
     }
 }

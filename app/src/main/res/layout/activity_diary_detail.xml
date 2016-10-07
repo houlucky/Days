@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include
+        android:id="@+id/app_bar_layout"
+        layout="@layout/toolbar_with_back"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app_bar_layout"
+        >
+
+        <RelativeLayout
+            android:id="@+id/diaryRl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_16"
+                android:text="2016年9月3日20:35:21"
+                android:textSize="@dimen/text_size_12"
+                />
+
+            <EditText
+                android:id="@+id/diary_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/time_tv"
+                android:textSize="@dimen/text_size_14"
+                android:textColor="#777777"
+                android:background="@null"
+                android:enabled="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:text="sdsdsadsssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+                android:paddingStart="@dimen/margin_16"
+                android:paddingEnd="@dimen/margin_16"
+                android:paddingBottom="@dimen/margin_16"
+                android:layout_margin="0dp"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

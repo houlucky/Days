@@ -3,15 +3,15 @@ package com.houxy.days.base;
 /**
  * Created by Houxy on 2016/9/5.
  */
-public class ImageHolder {
+public class StringHolder {
 
-    private String url;
+    private String string;
     private int startIndex;
     private int endIndex;
 
 
-    public ImageHolder(String url, int startIndex, int endIndex){
-        this.url = url;
+    public StringHolder(String string, int startIndex, int endIndex){
+        this.string = string;
         this.startIndex = startIndex;
         this.endIndex= endIndex;
     }
@@ -25,8 +25,8 @@ public class ImageHolder {
         return startIndex;
     }
 
-    public String getUrl() {
-        return url;
+    public String getString() {
+        return string;
     }
 
     public void setEndIndex(int endIndex) {
@@ -37,12 +37,12 @@ public class ImageHolder {
         this.startIndex = startIndex;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setString(String string) {
+        this.string = string;
     }
 
     @Override
     public String toString() {
-        return "src : " + getUrl() + " start : " + getStartIndex() + " end : " + getEndIndex();
+        return "src : " + getString() + " start : " + getStartIndex() + " end : " + getEndIndex();
     }
 }

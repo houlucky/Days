@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.houxy.days.R;
 import com.houxy.days.common.utils.DensityUtil;
 import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
@@ -35,6 +36,7 @@ public class MeiZhiViewHolder extends BaseViewHolder {
         Glide.with(getContext())
                 .load(meiZhi.getUrl())
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(ivGirl);
         tvTitle.setText(meiZhi.getDesc());
     }

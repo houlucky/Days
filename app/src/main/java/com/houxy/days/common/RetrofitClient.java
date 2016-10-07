@@ -5,8 +5,10 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.houxy.days.BuildConfig;
 import com.houxy.days.C;
 import com.houxy.days.DaysApplication;
+import com.houxy.days.R;
 import com.houxy.days.common.utils.NetUtil;
 import com.houxy.days.common.utils.SPUtil;
+import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.common.utils.rx.RxHelper;
 import com.houxy.days.modules.welfare.bean.MeiZhi;
 import com.houxy.days.modules.welfare.bean.Result;
@@ -166,6 +168,17 @@ public class RetrofitClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
+    }
+
+    public static void disposeFailureInfo(Throwable t) {
+
+        if (t.toString().contains("GaiException")
+                || t.toString().contains("SocketTimeoutException")
+                || t.toString().contains("UnknownHostException")) {
+            ToastUtils.showLong(R.string.no_network);
+        } else if (t.toString().contains("ConnectException")) {
+            ToastUtils.showLong(R.string.fail_connect);
+        }
     }
 
     public Observable<Result<List<MeiZhi>>> getMeiZhi(int page){

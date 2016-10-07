@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
-    android:background="@color/defaultWhite"
+    android:foreground="?selectableItemBackground"
     android:layout_marginStart="@dimen/dimen_5"
     android:layout_marginEnd="@dimen/dimen_5"
     app:cardCornerRadius="@dimen/dimen_5"
@@ -26,17 +26,16 @@
             android:maxLines="1"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/diary_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/time_tv"
             android:layout_marginTop="@dimen/margin_10"
-            android:text="dfdf"
             android:textSize="@dimen/text_size_14"
             android:textColor="#777777"
-            android:background="@null"
-            android:enabled="false"
+            android:maxLines="5"
+            android:ellipsize="end"
             />
 
     </RelativeLayout>

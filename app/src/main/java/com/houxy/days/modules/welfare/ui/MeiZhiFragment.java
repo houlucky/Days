@@ -90,12 +90,6 @@ public class MeiZhiFragment extends BaseFragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-        swRefresh.post(new Runnable() {
-            @Override
-            public void run() {
-                swRefresh.setRefreshing(true);
-            }
-        });
     }
 
     private void loadMeiZhi(final int page) {
@@ -109,14 +103,16 @@ public class MeiZhiFragment extends BaseFragment {
 
             @Override
             public void onError(Throwable throwable) {
-                ToastUtils.show(throwable.toString());
-                if(null == emptyAdapter){
-                    emptyAdapter = new EmptyAdapter();
-                    Log.d("TAG","10");
+                RetrofitClient.disposeFailureInfo(throwable);
+                if(!SPUtil.getIsHasMeiZhiCache()){
+                    if(null == emptyAdapter){
+                        emptyAdapter = new EmptyAdapter();
+                        Log.d("TAG","10");
+                    }
+                    loadMoreRecyclerView.setAdapter(emptyAdapter);
+                    emptyRl.setVisibility(View.VISIBLE);
+                    Log.d("TAG","11");
                 }
-                loadMoreRecyclerView.setAdapter(emptyAdapter);
-                emptyRl.setVisibility(View.VISIBLE);
-                Log.d("TAG","11");
             }
 
             @Override
@@ -130,6 +126,9 @@ public class MeiZhiFragment extends BaseFragment {
                             loadMoreRecyclerView.setAdapter(meiZhiAdapter);
                         }
                         meiZhiAdapter.getMeiZhiList().clear();
+                        ArrayList<MeiZhi> meiZhis = new ArrayList<>();
+                        meiZhis.addAll(meiZhiResult.getResults());
+                        ACache.getDefault().put(C.MEIZHI_CACHE, meiZhis);
                         Log.d("TAG", "2");
                     }
                     meiZhiAdapter.setMeiZhiList(meiZhiResult.getResults());
@@ -139,6 +138,10 @@ public class MeiZhiFragment extends BaseFragment {
                 Log.d("TAG","4");
             }
         };
+
+        if( page == 1){
+            getMeiZhiFromCache(meiZhiObserver);
+        }
 
         getMeiZhiFromNetWork(page, meiZhiObserver);
     }
@@ -150,9 +153,26 @@ public class MeiZhiFragment extends BaseFragment {
                 .doOnTerminate(new Action0() {
                     @Override
                     public void call() {
-                        swRefresh.setRefreshing(false);
+                        if(swRefresh.isRefreshing()){
+                            swRefresh.setRefreshing(false);
+                        }
                     }
                 }).subscribe(observer);
+    }
+
+    private void getMeiZhiFromCache(Observer<Result<List<MeiZhi>>> observer){
+        ArrayList<MeiZhi> meiZhis;
+        meiZhis = (ArrayList<MeiZhi>) ACache.getDefault().getAsObject(C.MEIZHI_CACHE);
+        if( null != meiZhis){
+            Result<List<MeiZhi>> result = new Result<>();
+            result.setError(true);
+            result.setResults(meiZhis);
+            SPUtil.setIsHasMeiZhiCache(true);
+            Observable.just(result).distinct().subscribe(observer);
+        }else {
+            SPUtil.setIsHasMeiZhiCache(false);
+        }
+
     }
 
     @Override
