@@ -149,7 +149,6 @@ public class BitmapUtils {
 
         Log.d("TAG", " size : " + bitmapHolders.size());
         String strings[] = text.split("<img(.*?)>");
-        Logger.d("length : " + strings.length);
         int w=0;
         for (String s: strings){
             if(!s.equals("")){
