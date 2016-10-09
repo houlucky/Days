@@ -7,10 +7,12 @@ Days——是一款可以记录生活点滴、记录生命中重要的日子、�
 - 缓存数据，减少网络请求，保证离线查看
 - 本地化储存数据
 ----
+
 - **开源不易，希望能给个Star鼓励**
 - 项目地址：https://github.com/houlucky/Days
 - 项目主页发布issue: https://github.com/houlucky/Days/issues
 - 本项目为开源项目,技术交流可以通过邮箱联系: houxya@gmail.com
+
 ----
 
 权限说明
