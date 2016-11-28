@@ -2,8 +2,10 @@ package com.houxy.days.modules.diary.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,8 @@ import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.common.utils.UploadPictureUtil;
 import com.houxy.days.modules.diary.bean.Diary;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -66,11 +70,24 @@ public class DiaryDetailActivity extends ToolbarActivity {
             timeTv.setText(TimeUtil.getTime(Long.valueOf(diary.getPostTime())));
         }
 
-        diaryRl.setOnLongClickListener(new View.OnLongClickListener() {
+        diaryContent.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                String s = UploadPictureUtil.saveBitmapToSDCard(BitmapUtils.richTextAsBitmap(diary.getContent()));
-                ToastUtils.show("保存图片成功" + s);
+
+                Snackbar.make(diaryRl, "生成图片分享日志", Snackbar.LENGTH_LONG)
+                        .setAction("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String s = UploadPictureUtil.saveBitmapToSDCard(BitmapUtils.richTextAsBitmap(diary.getContent()));
+                        ToastUtils.show("保存图片成功" + s);
+                        Uri uri = Uri.fromFile(new File(s));
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_SEND);
+                        intent.setType("image/*");
+                        intent.putExtra(Intent.EXTRA_STREAM, uri);
+                        startActivity(intent);
+                    }
+                }).show();
                 return false;
             }
         });

@@ -3,7 +3,7 @@ package com.houxy.days.modules.welfare.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
+import com.houxy.days.base.BaseViewHolder;
 import com.houxy.days.modules.welfare.bean.MeiZhi;
 
 import java.util.ArrayList;

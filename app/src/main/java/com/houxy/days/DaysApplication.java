@@ -4,11 +4,17 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 import com.houxy.days.common.RetrofitClient;
-import com.houxy.days.common.utils.SPUtil;
+import com.houxy.days.di.component.AppComponent;
+import com.houxy.days.di.component.DaggerAppComponent;
+import com.houxy.days.di.module.AppModule;
 import com.orhanobut.logger.Logger;
+
+//import com.houxy.days.di.component.DaggerAppComponent;
 
 /**
  * Created by Houxy on 2016/9/2.
+ *
+ * Info :
  */
 public class DaysApplication extends Application{
 
@@ -27,6 +33,8 @@ public class DaysApplication extends Application{
         DaysApplication.INSTANCE = a;
     }
 
+    private AppComponent mAppComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,5 +51,11 @@ public class DaysApplication extends Application{
         } else {
             cacheDir = getApplicationContext().getCacheDir().toString();
         }
+
+        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+    }
+
+    public AppComponent getAppComponent() {
+        return mAppComponent;
     }
 }

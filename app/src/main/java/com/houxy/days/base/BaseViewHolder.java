@@ -1,4 +1,4 @@
-package com.houxy.days.modules.diary.adapter.holder;
+package com.houxy.days.base;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Houxy on 2016/9/12.
+ *
+ * Info :  holder的基类
  */
 public class BaseViewHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 

@@ -6,26 +6,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
 
-import com.houxy.days.base.BitmapHolder;
-import com.houxy.days.base.StringHolder;
+import com.houxy.days.common.holder.BitmapHolder;
+import com.houxy.days.common.holder.StringHolder;
 import com.houxy.days.common.ACache;
-import com.houxy.days.common.Utils;
-import com.orhanobut.logger.Logger;
-import com.zzhoujay.richtext.ImageHolder;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

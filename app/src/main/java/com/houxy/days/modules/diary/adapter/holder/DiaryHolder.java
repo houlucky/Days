@@ -1,23 +1,22 @@
 package com.houxy.days.modules.diary.adapter.holder;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.houxy.days.R;
+import com.houxy.days.base.BaseViewHolder;
 import com.houxy.days.base.i.OnItemClickListener;
 import com.houxy.days.common.Utils;
-import com.houxy.days.common.utils.InsertPicUtil;
 import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.modules.diary.bean.Diary;
-import com.houxy.days.modules.diary.ui.DiaryDetailActivity;
 
 import butterknife.Bind;
 
 /**
  * Created by Houxy on 2016/9/12.
+ *
+ * Info :  日记装饰器
  */
 public class DiaryHolder extends BaseViewHolder {
 

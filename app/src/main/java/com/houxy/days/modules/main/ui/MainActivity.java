@@ -12,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,10 +30,14 @@ import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
 import com.houxy.days.common.utils.DialogUtil;
 import com.houxy.days.common.utils.ToastUtils;
+import com.houxy.days.di.module.ActivityModule;
 import com.houxy.days.modules.diary.ui.DiaryActivity;
 import com.houxy.days.modules.diary.ui.DiaryEditActivity;
 import com.houxy.days.modules.diary.ui.DiaryFragment;
 import com.houxy.days.modules.login.ui.LoginActivity;
+import com.houxy.days.modules.main.DaggerMainComponent;
+import com.houxy.days.modules.main.MainComponent;
+import com.houxy.days.modules.main.MainModule;
 import com.houxy.days.modules.main.adapter.TabPagerAdapter;
 import com.houxy.days.modules.main.bean.User;
 import com.houxy.days.modules.main.listener.FabSwitchAnimation;
@@ -67,7 +70,7 @@ public class MainActivity extends BaseActivity
     ViewPager viewPager;
     @Bind(R.id.fab)
     FloatingActionButton fab;
-
+    private MainComponent mMainComponent;
 //    private User user;
 
     public static Intent getIntentStartActivity(Context context, int currentItem) {
@@ -82,6 +85,15 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        mMainComponent = DaggerMainComponent.builder()
+                .appComponent(getAppComponent())
+                .activityModule(new ActivityModule(this))
+                .mainModule(new MainModule()).build();
+        mMainComponent.inject(this);
+    }
+
+    public MainComponent getMainComponent() {
+        return mMainComponent;
     }
 
     private void initView() {

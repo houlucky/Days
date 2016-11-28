@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.houxy.days.R;
 import com.houxy.days.common.utils.DensityUtil;
-import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
+import com.houxy.days.base.BaseViewHolder;
 import com.houxy.days.modules.welfare.bean.MeiZhi;
 
 import butterknife.Bind;

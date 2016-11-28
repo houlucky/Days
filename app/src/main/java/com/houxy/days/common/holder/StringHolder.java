@@ -1,4 +1,4 @@
-package com.houxy.days.base;
+package com.houxy.days.common.holder;
 
 /**
  * Created by Houxy on 2016/9/5.

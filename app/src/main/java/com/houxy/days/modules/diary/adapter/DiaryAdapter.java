@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.houxy.days.base.i.OnItemClickListener;
-import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
+import com.houxy.days.base.BaseViewHolder;
 import com.houxy.days.modules.diary.adapter.holder.DiaryHolder;
 import com.houxy.days.modules.diary.bean.Diary;
 import com.houxy.days.widget.AnimRecyclerViewAdapter;

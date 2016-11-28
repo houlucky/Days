@@ -31,7 +31,10 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by Houxy on 2016/9/2.
+ *
+ * Info :  show diary activity
  */
+@Deprecated
 public class DiaryActivity extends ToolbarActivity {
 
     @Bind(R.id.load_more_recycler_view)
@@ -67,7 +70,6 @@ public class DiaryActivity extends ToolbarActivity {
         adapter = new DiaryAdapter();
         loadMoreRecyclerView.setAdapter(adapter);
         loadMoreRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        loadMoreRecyclerView.addItemDecoration(new RecyclerViewUtil.SpaceItemDecoration(R.dimen.margin_10));
         loadMoreRecyclerView.addItemDecoration(new RecyclerViewUtil.SpaceItemDecoration(getResources()
                 .getDimensionPixelSize(R.dimen.margin_10)));
         loadMoreRecyclerView.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {

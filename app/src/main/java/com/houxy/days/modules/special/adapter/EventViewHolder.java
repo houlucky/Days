@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.houxy.days.R;
 import com.houxy.days.common.utils.TimeUtil;
-import com.houxy.days.modules.diary.adapter.holder.BaseViewHolder;
+import com.houxy.days.base.BaseViewHolder;
 import com.houxy.days.modules.special.bean.SpecialEvent;
 
 import java.util.Calendar;

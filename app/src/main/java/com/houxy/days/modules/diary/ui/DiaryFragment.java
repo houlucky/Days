@@ -11,41 +11,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseFragment;
 import com.houxy.days.base.i.OnItemClickListener;
-import com.houxy.days.common.ACache;
 import com.houxy.days.common.utils.DensityUtil;
 import com.houxy.days.common.utils.RecyclerViewUtil;
-import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.modules.diary.adapter.DiaryAdapter;
 import com.houxy.days.modules.diary.bean.Diary;
-import com.houxy.days.modules.diary.bean.DiaryList;
+import com.houxy.days.modules.diary.contract.DiaryContract;
+import com.houxy.days.modules.diary.di.DaggerDiaryComponent;
+import com.houxy.days.modules.diary.di.DiaryModule;
+import com.houxy.days.modules.diary.presenter.DiaryPresenter;
+import com.houxy.days.modules.main.ui.MainActivity;
 import com.houxy.days.modules.special.adapter.EventAdapter;
-import com.houxy.days.modules.special.bean.SpecialEvent;
-import com.houxy.days.widget.LoadMoreRecyclerView;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.functions.Func2;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Houxy on 2016/9/22.
  */
 
-public class DiaryFragment extends BaseFragment {
+public class DiaryFragment extends BaseFragment implements DiaryContract.View{
 
 
 
@@ -55,6 +46,7 @@ public class DiaryFragment extends BaseFragment {
     SwipeRefreshLayout swRefresh;
     @Bind(R.id.empty_rl)
     RelativeLayout emptyRl;
+    @Inject DiaryPresenter mPresenter;
 
 
     @Nullable
@@ -64,7 +56,10 @@ public class DiaryFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
         ButterKnife.bind(this, view);
         initView();
-        loadDiaries();
+        DaggerDiaryComponent.builder()
+                .activityComponent( ((MainActivity)getActivity()).getMainComponent() )
+                .diaryModule(new DiaryModule(this))
+                .build().inject(this);
         return view;
     }
 
@@ -78,7 +73,8 @@ public class DiaryFragment extends BaseFragment {
                 swRefresh.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        loadDiaries();
+//                        loadDiaries();
+                        mPresenter.loadDiaries();
                     }
                 }, 1000);
             }
@@ -89,29 +85,44 @@ public class DiaryFragment extends BaseFragment {
                 android.R.color.holo_red_light);
     }
 
-    private void loadDiaries() {
-        if (null != ACache.getDefault().getAsObject(C.DIARY_CACHE)) {
-            DiaryAdapter diaryAdapter = new DiaryAdapter();
-            recyclerView.setAdapter(diaryAdapter);
-            emptyRl.setVisibility(View.GONE);
-            final List<Diary> diaries = (ArrayList<Diary>) ACache.getDefault().getAsObject(C.DIARY_CACHE);
-            diaryAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    Intent intent = DiaryDetailActivity.getIntentStartActivity(getContext(), diaries.get(position), position);
-                    startActivity(intent);
-                }
-            });
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+        mPresenter.loadDiaries();
+    }
 
-            if (!diaryAdapter.getDiaryList().isEmpty()) {
-                diaryAdapter.getDiaryList().clear();
-            }
-            diaryAdapter.setDiaryList(diaries);
-            diaryAdapter.notifyDataSetChanged();
-        } else {
+
+    @Override
+    public void showEmptyView(boolean bShow) {
+        emptyRl.setVisibility(bShow ? View.VISIBLE : View.GONE);
+        if(bShow){
             recyclerView.setAdapter(new EventAdapter());
-            emptyRl.setVisibility(View.VISIBLE);
         }
-        swRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void setRefreshing(boolean bShow) {
+        swRefresh.setRefreshing(bShow);
+    }
+
+    @Override
+    public void showDiaries(final ArrayList<Diary> diaries) {
+        DiaryAdapter diaryAdapter = new DiaryAdapter();
+        recyclerView.setAdapter(diaryAdapter);
+        emptyRl.setVisibility(View.GONE);
+        diaryAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = DiaryDetailActivity.getIntentStartActivity(getContext(), diaries.get(position), position);
+                startActivity(intent);
+            }
+        });
+
+        if (!diaryAdapter.getDiaryList().isEmpty()) {
+            diaryAdapter.getDiaryList().clear();
+        }
+        diaryAdapter.setDiaryList(diaries);
+        diaryAdapter.notifyDataSetChanged();
     }
 }
