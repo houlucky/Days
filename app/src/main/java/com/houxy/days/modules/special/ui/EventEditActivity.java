@@ -2,7 +2,6 @@ package com.houxy.days.modules.special.ui;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SwitchCompat;
@@ -18,10 +17,11 @@ import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.ToolbarActivity;
 import com.houxy.days.common.ACache;
+import com.houxy.days.common.StatusBarUtil;
 import com.houxy.days.common.utils.DialogUtil;
+import com.houxy.days.common.utils.ResUtil;
 import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.common.utils.ToastUtils;
-import com.houxy.days.modules.main.ui.MainActivity;
 import com.houxy.days.modules.special.bean.SpecialEvent;
 
 import java.util.ArrayList;
@@ -35,32 +35,19 @@ import butterknife.ButterKnife;
  */
 public class EventEditActivity extends ToolbarActivity {
 
-    @Bind(R.id.date_tv)
-    TextView dateTv;
-    @Bind(R.id.edit_event)
-    EditText editEvent;
-    @Bind(R.id.date_switch)
-    SwitchCompat dateSwitch;
-    @Bind(R.id.category_rl)
-    RelativeLayout categoryRl;
-    @Bind(R.id.sticky_switch)
-    SwitchCompat stickySwitch;
-    @Bind(R.id.sticky_rl)
-    RelativeLayout stickyRl;
-    @Bind(R.id.repeat_show_tv)
-    TextView repeatShowTv;
-    @Bind(R.id.repeat_rl)
-    RelativeLayout repeatRl;
-    @Bind(R.id.finish_time_switch)
-    SwitchCompat finishTimeSwitch;
-    @Bind(R.id.finish_time_rl)
-    RelativeLayout finishTimeRl;
-    @Bind(R.id.save_event_btn)
-    Button saveEventBtn;
-    @Bind(R.id.category_show_tv)
-    TextView categoryShowTv;
-    @Bind(R.id.date_rl)
-    RelativeLayout dateRl;
+    @Bind(R.id.date_tv) TextView dateTv;
+    @Bind(R.id.edit_event) EditText editEvent;
+    @Bind(R.id.date_switch) SwitchCompat dateSwitch;
+    @Bind(R.id.category_rl) RelativeLayout categoryRl;
+    @Bind(R.id.sticky_switch) SwitchCompat stickySwitch;
+    @Bind(R.id.sticky_rl) RelativeLayout stickyRl;
+    @Bind(R.id.repeat_show_tv) TextView repeatShowTv;
+    @Bind(R.id.repeat_rl) RelativeLayout repeatRl;
+    @Bind(R.id.finish_time_switch) SwitchCompat finishTimeSwitch;
+    @Bind(R.id.finish_time_rl) RelativeLayout finishTimeRl;
+    @Bind(R.id.save_event_btn) Button saveEventBtn;
+    @Bind(R.id.category_show_tv) TextView categoryShowTv;
+    @Bind(R.id.date_rl) RelativeLayout dateRl;
 
 
     @Override
@@ -74,6 +61,7 @@ public class EventEditActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         initView();
+        setStatusBar();
     }
 
     private void initView() {
@@ -137,6 +125,7 @@ public class EventEditActivity extends ToolbarActivity {
         saveEventBtn.setOnClickListener(onClickListener);
     }
 
+    @SuppressWarnings("unchecked")
     private void saveEvent() {
 
         if (TextUtils.isEmpty(editEvent.getText())) {
@@ -187,4 +176,8 @@ public class EventEditActivity extends ToolbarActivity {
 
     }
 
+    @Override
+    public void setStatusBar() {
+        StatusBarUtil.setColor(this, ResUtil.getColor(R.color.colorPrimary));
+    }
 }

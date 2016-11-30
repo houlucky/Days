@@ -15,8 +15,10 @@ import android.widget.TextView;
 
 import com.houxy.days.R;
 import com.houxy.days.base.ToolbarActivity;
+import com.houxy.days.common.StatusBarUtil;
 import com.houxy.days.common.utils.BitmapUtils;
 import com.houxy.days.common.utils.InsertPicUtil;
+import com.houxy.days.common.utils.ResUtil;
 import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.common.utils.UploadPictureUtil;
@@ -59,6 +61,7 @@ public class DiaryDetailActivity extends ToolbarActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         initView();
+        setStatusBar();
     }
 
     private void initView() {
@@ -119,5 +122,10 @@ public class DiaryDetailActivity extends ToolbarActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void setStatusBar() {
+        StatusBarUtil.setColor(this, ResUtil.getColor(R.color.colorPrimary));
     }
 }

@@ -1,6 +1,5 @@
 package com.houxy.days.modules.main.ui;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -28,7 +26,9 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseActivity;
+import com.houxy.days.common.StatusBarUtil;
 import com.houxy.days.common.utils.DialogUtil;
+import com.houxy.days.common.utils.ResUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.di.module.ActivityModule;
 import com.houxy.days.modules.diary.ui.DiaryActivity;
@@ -55,35 +55,28 @@ import cn.bmob.v3.BmobUser;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.houxy.days.R.id.fab;
+import static com.houxy.days.R.id.tabLayout;
+import static com.houxy.days.R.id.viewPager;
+
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //    @Bind(R.id.fab_action_edit_diary)
-//    FloatingActionButton fabActionEditDiary;
-//    @Bind(R.id.fab_action_edit_special_day)
-//    FloatingActionButton fabActionEditSpecialDay;
-//    @Bind(R.id.fab_action_menu)
-//    FloatingActionsMenu fabActionMenu;
-    @Bind(R.id.tabLayout)
-    TabLayout tabLayout;
-    @Bind(R.id.viewPager)
-    ViewPager viewPager;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
+    @Bind(R.id.nav_view) NavigationView mNavView;
+    @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
+    @Bind(viewPager) ViewPager mViewPager;
+    @Bind(fab) FloatingActionButton mFab;
+    @Bind(tabLayout) TabLayout mTabLayout;
     private MainComponent mMainComponent;
-//    private User user;
-
-    public static Intent getIntentStartActivity(Context context, int currentItem) {
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra("CurrentItem", currentItem);
-        return intent;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setStatusBar();
         initView();
         mMainComponent = DaggerMainComponent.builder()
                 .appComponent(getAppComponent())
@@ -96,35 +89,39 @@ public class MainActivity extends BaseActivity
         return mMainComponent;
     }
 
+
     private void initView() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-//        View.OnClickListener clickListener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (v.getId() == R.id.fab_action_edit_diary) {
-//                    Intent intent = new Intent(MainActivity.this, DiaryEditActivity.class);
-//                    startActivity(intent);
-//                    fabActionMenu.collapse();
-//                } else if (v.getId() == R.id.fab_action_edit_special_day) {
-//                    Intent intent = new Intent(MainActivity.this, EventEditActivity.class);
-//                    startActivity(intent);
-//                    fabActionMenu.collapse();
-//                }
-//            }
-//        };
-//
-//        fabActionEditDiary.setOnClickListener(clickListener);
-//        fabActionEditSpecialDay.setOnClickListener(clickListener);
+        setSupportActionBar(mToolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        if (null != drawer) {
-            drawer.addDrawerListener(toggle);
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        if (null != mDrawerLayout) {
+            mDrawerLayout.addDrawerListener(toggle);
         }
         toggle.syncState();
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (mViewPager.getCurrentItem()) {
+                    case 0:
+                        Intent intent = new Intent(MainActivity.this, DiaryEditActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        Intent intent1 = new Intent(MainActivity.this, EventEditActivity.class);
+                        startActivity(intent1);
+                        break;
+                    case 2:
+                        ToastUtils.show("美美哒~");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        mFab.setOnClickListener(onClickListener);
 
         initNavigationView();
         initFragments();
@@ -134,38 +131,19 @@ public class MainActivity extends BaseActivity
 
     private void initFragments() {
 
+        String titles[] = { "日记", "纪念日", "妹子"};
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new DiaryFragment());
         fragments.add(new EventFragment());
         fragments.add(new MeiZhiFragment());
         TabPagerAdapter tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), fragments);
-        viewPager.setAdapter(tabPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        mViewPager.setAdapter(tabPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(final TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                FabSwitchAnimation.start(fab, tab.getPosition());
-                View.OnClickListener onClickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        switch (tab.getPosition()){
-                            case 0:
-                                Intent intent = new Intent(MainActivity.this, DiaryEditActivity.class);
-                                startActivity(intent);
-                                break;
-                            case 1:
-                                Intent intent1 = new Intent(MainActivity.this, EventEditActivity.class);
-                                startActivity(intent1);
-                                break;
-                            case 2:
-                                ToastUtils.show("美美哒~");
-                                break;
-                            default:break;
-                        }
-                    }
-                };
-                fab.setOnClickListener(onClickListener);
+                mViewPager.setCurrentItem(tab.getPosition());
+                FabSwitchAnimation.start(mFab, tab.getPosition());
             }
 
             @Override
@@ -180,25 +158,10 @@ public class MainActivity extends BaseActivity
         });
 
         for (int i = 0; i < fragments.size(); i++) {
-            tabLayout.getTabAt(i).setCustomView(getTabView(i));
+            TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            checkNotNull(tab);
+            tab.setText(titles[i]);
         }
-        //这里有点坑
-        viewPager.setCurrentItem(1);
-        viewPager.setCurrentItem(0);
-
-        //如果是由其他活动结束进入的Main 需要判断他要进入的是哪个fragment
-        if (getIntent().getIntExtra("CurrentItem", -1) != -1) {
-            viewPager.setCurrentItem(getIntent().getIntExtra("CurrentItem", -1));
-        }
-    }
-
-    private View getTabView(int pos) {
-        int[] resId = {R.drawable.item_tab_diary_selector, R.drawable.item_tab_event_selector, R.drawable.item_tab_welfare_selector};
-
-        View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
-        ImageView iv = (ImageView) view.findViewById(R.id.iv);
-        iv.setImageResource(resId[pos]);
-        return view;
     }
 
     private void initNavigationView() {
@@ -233,7 +196,7 @@ public class MainActivity extends BaseActivity
             usernameTv.setOnClickListener(clickListener1);
             avatarIv.setOnClickListener(clickListener1);
             User user = BmobUser.getCurrentUser(User.class);
-            if( null != user){
+            if (null != user) {
                 Glide.with(this).load(user.getAvatar())
                         .placeholder(R.mipmap.default_profile)
                         .bitmapTransform(new CropCircleTransformation(this))
@@ -255,7 +218,7 @@ public class MainActivity extends BaseActivity
                 //设置 登录 退出 item 是否可见
                 menu.findItem(R.id.nav_signIn).setVisible(false);
                 menu.findItem(R.id.nav_signOut).setVisible(true);
-            }else {
+            } else {
                 menu.findItem(R.id.nav_signIn).setVisible(true);
                 menu.findItem(R.id.nav_signOut).setVisible(false);
             }
@@ -348,4 +311,12 @@ public class MainActivity extends BaseActivity
             drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void setStatusBar() {
+
+        StatusBarUtil.setColorForDrawerLayout(this, mDrawerLayout,
+                ResUtil.getColor(R.color.colorPrimary));
+    }
+
 }
