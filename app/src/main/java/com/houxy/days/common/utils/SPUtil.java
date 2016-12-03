@@ -1,7 +1,6 @@
 package com.houxy.days.common.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.houxy.days.C;
@@ -41,18 +40,34 @@ public class SPUtil {
     }
 
     public static void setToken(String token) {
-        getSP().edit().putString(C.TOKEN_HEADER, token);
+        getSP().edit().putString(C.TOKEN_HEADER, token).apply();
     }
 
     public static String getToken() {
         return getSP().getString(C.TOKEN_HEADER, "");
     }
 
-    public static void setIsHasMeiZhiCache(boolean hasMeiZhi) {
+    public static void setMeiZhiCache(boolean hasMeiZhi) {
         getSP().edit().putBoolean(C.HAS_MEIZHI_CACHE, hasMeiZhi).apply();
     }
 
-    public static boolean getIsHasMeiZhiCache() {
+    public static boolean getMeiZhiCache() {
         return getSP().getBoolean(C.HAS_MEIZHI_CACHE, false);
+    }
+
+    public static void setItemAnimation(boolean hasMeiZhi) {
+        getSP().edit().putBoolean(C.ITEM_ANIMATION, hasMeiZhi).apply();
+    }
+
+    public static boolean getItemAnimation() {
+        return getSP().getBoolean(C.ITEM_ANIMATION, false);
+    }
+
+    public static void setClearCache(boolean hasMeiZhi) {
+        getSP().edit().putBoolean(C.ITEM_ANIMATION, hasMeiZhi).apply();
+    }
+
+    public static boolean getClearCache() {
+        return getSP().getBoolean(C.ITEM_ANIMATION, false);
     }
 }

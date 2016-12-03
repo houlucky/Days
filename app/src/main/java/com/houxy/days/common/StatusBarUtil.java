@@ -571,26 +571,27 @@ public class StatusBarUtil {
      * @return 状态栏高度
      */
     private static int getStatusBarHeight(Context context) {
-        // 获得状态栏高度
+        //获各应用包下的指定资源ID
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        // 获得状态栏高度
         return context.getResources().getDimensionPixelSize(resourceId);
     }
 
     /**
      * 计算状态栏颜色
      *
-     * @param color color值
+     * @param color color值 eg.#AARRGGBB
      * @param alpha alpha值
-     * @return 最终的状态栏颜色
+     * @return 最终的状态栏颜色 A single color value in the form 0xAARRGGBB.
      */
     private static int calculateStatusColor(@ColorInt int color, int alpha) {
-        float a = 1 - alpha / 255f;
-        int red = color >> 16 & 0xff;
-        int green = color >> 8 & 0xff;
+        float a = 1 - alpha / 255f;//不透明度
+        int red = (color >> 16) & 0xff;
+        int green = (color >> 8) & 0xff;
         int blue = color & 0xff;
-        red = (int) (red * a + 0.5);
+        red = (int) (red * a + 0.5);//乘以不透明度，得到新的R的值
         green = (int) (green * a + 0.5);
         blue = (int) (blue * a + 0.5);
-        return 0xff << 24 | red << 16 | green << 8 | blue;
+        return (0xff << 24) | (red << 16) | (green << 8) | blue;
     }
 }

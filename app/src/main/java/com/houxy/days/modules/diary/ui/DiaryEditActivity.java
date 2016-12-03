@@ -29,18 +29,16 @@ import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.ToolbarActivity;
 import com.houxy.days.common.ACache;
-import com.houxy.days.common.StatusBarUtil;
 import com.houxy.days.common.Utils;
 import com.houxy.days.common.utils.BitmapUtils;
 import com.houxy.days.common.utils.DensityUtil;
 import com.houxy.days.common.utils.DialogUtil;
 import com.houxy.days.common.utils.InsertPicUtil;
-import com.houxy.days.common.utils.ResUtil;
 import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.common.utils.UploadPictureUtil;
-import com.houxy.days.modules.diary.bean.Diary;
-import com.houxy.days.modules.main.bean.User;
+import com.houxy.days.bean.Diary;
+import com.houxy.days.bean.User;
 
 import java.util.ArrayList;
 
@@ -292,10 +290,5 @@ public class DiaryEditActivity extends ToolbarActivity {
             saveDiary();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void setStatusBar() {
-        StatusBarUtil.setColor(this, ResUtil.getColor(R.color.colorPrimary));
     }
 }

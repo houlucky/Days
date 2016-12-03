@@ -16,14 +16,14 @@ import com.houxy.days.base.BaseFragment;
 import com.houxy.days.base.i.OnItemClickListener;
 import com.houxy.days.common.utils.DensityUtil;
 import com.houxy.days.common.utils.RecyclerViewUtil;
-import com.houxy.days.modules.diary.adapter.DiaryAdapter;
-import com.houxy.days.modules.diary.bean.Diary;
-import com.houxy.days.modules.diary.contract.DiaryContract;
+import com.houxy.days.adapter.DiaryAdapter;
+import com.houxy.days.bean.Diary;
+import com.houxy.days.modules.diary.DiaryContract;
 import com.houxy.days.modules.diary.di.DaggerDiaryComponent;
 import com.houxy.days.modules.diary.di.DiaryModule;
-import com.houxy.days.modules.diary.presenter.DiaryPresenter;
-import com.houxy.days.modules.main.ui.MainActivity;
-import com.houxy.days.modules.special.adapter.EventAdapter;
+import com.houxy.days.modules.diary.DiaryPresenter;
+import com.houxy.days.modules.main.MainActivity;
+import com.houxy.days.adapter.EventAdapter;
 
 import java.util.ArrayList;
 

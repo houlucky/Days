@@ -1,14 +1,12 @@
 package com.houxy.days.common;
 
-import com.houxy.days.modules.welfare.bean.MeiZhi;
-import com.houxy.days.modules.welfare.bean.Result;
+import com.houxy.days.bean.MeiZhi;
+import com.houxy.days.bean.Result;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**

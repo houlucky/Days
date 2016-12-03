@@ -44,4 +44,19 @@
     <string name="welcome_logo">Welcome</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
+    
+    //设置
+    <string name="title_interface">界面</string>
+    <string name="start_animation">首页 Item 动画</string>
+    <string name="title_system">系统</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="about_content">关于</string>
+    <string name="open_source">开源</string>
+    
+    
+    
+    
+    
+    
+    
 </resources>

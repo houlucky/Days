@@ -15,14 +15,12 @@ import android.widget.TextView;
 
 import com.houxy.days.R;
 import com.houxy.days.base.ToolbarActivity;
-import com.houxy.days.common.StatusBarUtil;
 import com.houxy.days.common.utils.BitmapUtils;
 import com.houxy.days.common.utils.InsertPicUtil;
-import com.houxy.days.common.utils.ResUtil;
 import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.common.utils.UploadPictureUtil;
-import com.houxy.days.modules.diary.bean.Diary;
+import com.houxy.days.bean.Diary;
 
 import java.io.File;
 
@@ -122,10 +120,5 @@ public class DiaryDetailActivity extends ToolbarActivity {
                 }
             }
         }
-    }
-
-    @Override
-    public void setStatusBar() {
-        StatusBarUtil.setColor(this, ResUtil.getColor(R.color.colorPrimary));
     }
 }

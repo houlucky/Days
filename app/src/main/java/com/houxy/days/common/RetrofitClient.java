@@ -10,8 +10,8 @@ import com.houxy.days.common.utils.NetUtil;
 import com.houxy.days.common.utils.SPUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.common.utils.rx.RxHelper;
-import com.houxy.days.modules.welfare.bean.MeiZhi;
-import com.houxy.days.modules.welfare.bean.Result;
+import com.houxy.days.bean.MeiZhi;
+import com.houxy.days.bean.Result;
 
 import java.io.File;
 import java.io.IOException;

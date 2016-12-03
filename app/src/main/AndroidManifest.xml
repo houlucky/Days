@@ -23,13 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".modules.main.ui.MainActivity"
+        <activity android:name=".modules.main.MainActivity"
             android:launchMode="singleTask"
             android:label="@string/app_name">
 
         </activity>
 
-        <activity android:name=".modules.login.ui.SplashActivity" >
+        <activity android:name=".modules.login.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,14 +39,16 @@
         <activity android:name=".modules.diary.ui.DiaryActivity"/>
         <activity android:name=".modules.diary.ui.DiaryEditActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".modules.special.ui.EventEditActivity"/>
-        <activity android:name=".modules.login.ui.LoginActivity"
+        <activity android:name=".modules.special.EventEditActivity"/>
+        <activity android:name=".modules.login.LoginActivity"
             />
 
-        <activity android:name=".modules.login.ui.RegisterActivity"/>
-        <activity android:name=".modules.setting.ui.SettingActivity"/>
+        <activity android:name=".modules.login.RegisterActivity"/>
+        <activity android:name=".modules.setting.SettingActivity"/>
         <activity android:name=".modules.diary.ui.DiaryDetailActivity"
             android:windowSoftInputMode="adjustResize"/>
+
+        <activity android:name=".modules.setting.AboutActivity"/>
     </application>
 
 </manifest>

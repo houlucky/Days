@@ -25,6 +25,8 @@ public class C {
     public static final String PASSWORD = "password";
     public static final String TOKEN_HEADER = "Authorization";
     public static final String HAS_MEIZHI_CACHE = "";
+    public static final String CLEAR_CACHE = "clear_cache";
+    public static final String ITEM_ANIMATION = "item_animation";
 
 //    public static final int CurrentItem_Diary = 0;
 //    public static final int CurrentItem_Event = 1;

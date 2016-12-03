@@ -11,9 +11,9 @@ import com.houxy.days.R;
 import com.houxy.days.base.ToolbarActivity;
 import com.houxy.days.common.utils.RecyclerViewUtil;
 import com.houxy.days.common.utils.ToastUtils;
-import com.houxy.days.modules.diary.adapter.DiaryAdapter;
-import com.houxy.days.modules.diary.bean.Diary;
-import com.houxy.days.modules.diary.bean.DiaryList;
+import com.houxy.days.adapter.DiaryAdapter;
+import com.houxy.days.bean.Diary;
+import com.houxy.days.bean.DiaryList;
 import com.houxy.days.widget.LoadMoreRecyclerView;
 
 import java.util.List;

@@ -4,7 +4,6 @@ import com.houxy.days.di.component.ActivityComponent;
 import com.houxy.days.di.component.AppComponent;
 import com.houxy.days.di.module.ActivityModule;
 import com.houxy.days.di.scope.PerActivity;
-import com.houxy.days.modules.main.ui.MainActivity;
 
 import dagger.Component;
 

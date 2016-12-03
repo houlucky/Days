@@ -1,6 +1,6 @@
 package com.houxy.days.common.utils.rx;
 
-import com.houxy.days.modules.welfare.bean.Result;
+import com.houxy.days.bean.Result;
 
 import rx.Observable;
 import rx.Subscriber;

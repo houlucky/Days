@@ -1,6 +1,6 @@
 package com.houxy.days.modules.diary.di;
 
-import com.houxy.days.modules.diary.contract.DiaryContract;
+import com.houxy.days.modules.diary.DiaryContract;
 
 import dagger.Module;
 import dagger.Provides;
