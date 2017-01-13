@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <include
-        layout="@layout/toolbar_with_back"
+        layout="@layout/include_toolbar"
         />
 
     <android.support.v4.widget.SwipeRefreshLayout

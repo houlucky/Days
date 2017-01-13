@@ -1,4 +1,4 @@
-package com.houxy.days.modules.special;
+package com.houxy.days.modules.event;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;

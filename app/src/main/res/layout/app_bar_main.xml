@@ -16,6 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
             android:background="@color/toolbar_bg_color"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             />
@@ -74,7 +75,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/fab_edit"
         app:backgroundTint="@color/colorAccent"
-        app:layout_behavior="com.houxy.days.modules.main.listener.FloatingActionButtonScrollBehavior"
+        app:layout_behavior="com.houxy.days.modules.main.behavior.FloatingActionButtonScrollBehavior"
         />
 
 </android.support.design.widget.CoordinatorLayout>

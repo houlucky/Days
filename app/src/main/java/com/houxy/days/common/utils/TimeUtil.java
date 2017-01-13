@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.format.DateUtils;
 
-import com.houxy.days.common.utils.DateFormatUtil;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,6 +59,13 @@ public class TimeUtil {
 
         SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return mDateFormat.format(date);
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static String getYMD(long time) {
+
+        SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return mDateFormat.format(new Date(time));
     }
 
     /**

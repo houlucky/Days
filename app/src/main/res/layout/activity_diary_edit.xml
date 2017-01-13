@@ -7,9 +7,8 @@
     android:fitsSystemWindows="true"
     >
 
-    <include android:id="@+id/app_bar_layout"
-        layout="@layout/toolbar_with_back"
-        />
+    <include android:id="@+id/toolbar"
+        layout="@layout/include_toolbar"/>
 
 
     <RelativeLayout
@@ -49,7 +48,7 @@
         android:id="@+id/diary_edit_scrollEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_bar_layout"
+        android:layout_below="@+id/toolbar"
         android:layout_above="@+id/diary_edit_select_rl"
         android:layout_alignParentStart="true"
         >

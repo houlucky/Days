@@ -25,23 +25,22 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.houxy.days.R;
+import com.houxy.days.adapter.TabPagerAdapter;
 import com.houxy.days.base.BaseActivity;
+import com.houxy.days.bean.User;
 import com.houxy.days.common.StatusBarUtil;
 import com.houxy.days.common.utils.DialogUtil;
 import com.houxy.days.common.utils.ResUtil;
 import com.houxy.days.common.utils.ToastUtils;
 import com.houxy.days.di.module.ActivityModule;
-import com.houxy.days.modules.diary.ui.DiaryActivity;
 import com.houxy.days.modules.diary.ui.DiaryEditActivity;
 import com.houxy.days.modules.diary.ui.DiaryFragment;
 import com.houxy.days.modules.login.LoginActivity;
-import com.houxy.days.adapter.TabPagerAdapter;
-import com.houxy.days.bean.User;
 import com.houxy.days.modules.main.behavior.FabSwitchAnimation;
 import com.houxy.days.modules.setting.AboutActivity;
 import com.houxy.days.modules.setting.SettingActivity;
-import com.houxy.days.modules.special.EventEditActivity;
-import com.houxy.days.modules.special.EventFragment;
+import com.houxy.days.modules.event.EventEditActivity;
+import com.houxy.days.modules.event.EventFragment;
 import com.houxy.days.modules.welfare.MeiZhiFragment;
 
 import java.util.ArrayList;
@@ -267,7 +266,7 @@ public class MainActivity extends BaseActivity
 
         switch (item.getItemId()) {
             case R.id.nav_diary:
-                startActivity(new Intent(this, DiaryActivity.class));
+//                startActivity(new Intent(this, DiaryActivity.class));
                 break;
             case R.id.nav_anniversary:
                 break;

@@ -6,7 +6,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,7 +27,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AboutActivity extends BaseActivity {
 
 
-    @Bind(R.id.bannner) ImageView mBannner;
+    @Bind(R.id.banner) ImageView mBanner;
     @Bind(R.id.tv_version) TextView mTvVersion;
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.toolbar_layout) CollapsingToolbarLayout mToolbarLayout;
@@ -58,14 +57,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public void setStatusBar() {
-        StatusBarUtil.setTranslucent(this);
+        StatusBarUtil.setTranslucentForCoordinatorLayout(this, 112);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if( item.getItemId() == android.R.id.home){
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

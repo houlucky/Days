@@ -1,20 +1,9 @@
 package com.houxy.days.base;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.houxy.days.R;
 
@@ -26,18 +15,18 @@ public abstract class ToolbarActivity extends BaseActivity{
 
     abstract protected int provideContentViewId();
     protected Toolbar mToolBar;
-    protected AppBarLayout mAppBarLayout;
-    private TextView titleTv; //需要在toolbar里面包含TextView
+//    protected AppBarLayout mAppBarLayout;
+//    private TextView titleTv; //需要在toolbar里面包含TextView
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(provideContentViewId());
         mToolBar = (Toolbar)findViewById(R.id.toolbar);
-        mAppBarLayout = (AppBarLayout)findViewById(R.id.app_bar_layout);
-        titleTv = (TextView) findViewById(R.id.title_tv);
+//        mAppBarLayout = (AppBarLayout)findViewById(R.id.app_bar_layout);
+//        titleTv = (TextView) findViewById(R.id.title_tv);
 
-        if(null == mToolBar || null == mAppBarLayout ){
+        if(null == mToolBar ){
             throw new IllegalStateException(
                     "The subclass of ToolbarActivity must contain a toolbar.");
         }
@@ -56,9 +45,7 @@ public abstract class ToolbarActivity extends BaseActivity{
     }
 
     public void setToolBarTitle(String title){
-        if(null != titleTv){
-            titleTv.setText(title);
-        }
+        mToolBar.setTitle(title);
     }
 
 //    public void setRightButton(@DrawableRes int resId){

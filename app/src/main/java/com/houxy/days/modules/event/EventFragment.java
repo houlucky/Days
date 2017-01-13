@@ -1,5 +1,6 @@
-package com.houxy.days.modules.special;
+package com.houxy.days.modules.event;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.houxy.days.C;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseFragment;
+import com.houxy.days.base.i.OnItemClickListener;
 import com.houxy.days.common.ACache;
 import com.houxy.days.common.utils.DensityUtil;
 import com.houxy.days.common.utils.RecyclerViewUtil;
@@ -116,6 +118,14 @@ public class EventFragment extends BaseFragment {
             }
             eventAdapter.setEventList(specialEvents);
             eventAdapter.notifyDataSetChanged();
+
+            eventAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    Intent intent = EventDetailActivity.getIntentStartActivity(getContext(), position);
+                    startActivity(intent);
+                }
+            });
         } else {
             recyclerView.setAdapter(new EventAdapter());
             emptyRl.setVisibility(View.VISIBLE);

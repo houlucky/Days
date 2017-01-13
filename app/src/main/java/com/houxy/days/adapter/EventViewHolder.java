@@ -5,9 +5,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.houxy.days.R;
-import com.houxy.days.common.utils.TimeUtil;
 import com.houxy.days.base.BaseViewHolder;
+import com.houxy.days.base.i.OnItemClickListener;
 import com.houxy.days.bean.SpecialEvent;
+import com.houxy.days.common.utils.TimeUtil;
 
 import java.util.Calendar;
 
@@ -27,14 +28,14 @@ public class EventViewHolder extends BaseViewHolder {
     @Bind(R.id.end_tv)
     TextView endTv;
 
-    public EventViewHolder(Context context, ViewGroup root) {
-        super(context, root, R.layout.item_recyclerview_event);
+    public EventViewHolder(Context context, ViewGroup root, OnItemClickListener onItemClickListener) {
+        super(context, root, R.layout.item_recyclerview_event, onItemClickListener);
     }
 
 
     @Override
     public void bindData(Object o) {
-        SpecialEvent specialEvent = (SpecialEvent)o;
+        final SpecialEvent specialEvent = (SpecialEvent)o;
         Calendar calendarAssign = TimeUtil.getAssignCalendar(specialEvent.getDate());
         eventDaysTv.setText(TimeUtil.getDaysApart(calendarAssign));
 
@@ -47,6 +48,14 @@ public class EventViewHolder extends BaseViewHolder {
             eventDaysTv.setBackgroundResource(R.color.upcoming_event_bg_color);
             endTv.setBackgroundResource(R.color.upcoming_event_bg_color_dark);
         }
+
+//        itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = EventDetailActivity.getIntentStartActivity(getContext(), specialEvent);
+//                getContext().startActivity(intent);
+//            }
+//        });
 
     }
 }

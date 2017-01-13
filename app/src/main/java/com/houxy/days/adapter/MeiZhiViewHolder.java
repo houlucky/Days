@@ -1,6 +1,8 @@
 package com.houxy.days.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,9 +10,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.houxy.days.R;
-import com.houxy.days.common.utils.DensityUtil;
 import com.houxy.days.base.BaseViewHolder;
 import com.houxy.days.bean.MeiZhi;
+import com.houxy.days.common.utils.DensityUtil;
+import com.houxy.days.modules.welfare.PhotoActivity;
 
 import butterknife.Bind;
 
@@ -31,7 +34,7 @@ public class MeiZhiViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(Object o) {
-        MeiZhi meiZhi = (MeiZhi) o;
+        final MeiZhi meiZhi = (MeiZhi) o;
         setRatioImageView();
         Glide.with(getContext())
                 .load(meiZhi.getUrl())
@@ -39,6 +42,14 @@ public class MeiZhiViewHolder extends BaseViewHolder {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(ivGirl);
         tvTitle.setText(meiZhi.getDesc());
+
+        ivGirl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = PhotoActivity.getIntentStartActivity(getContext(), meiZhi.getUrl());
+                getContext().startActivity(intent);
+            }
+        });
     }
 
     //设置imageview的大小不一

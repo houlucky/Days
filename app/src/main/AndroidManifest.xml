@@ -36,10 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".modules.diary.ui.DiaryActivity"/>
+
         <activity android:name=".modules.diary.ui.DiaryEditActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".modules.special.EventEditActivity"/>
+        <activity android:name=".modules.event.EventEditActivity"/>
         <activity android:name=".modules.login.LoginActivity"
             />
 
@@ -49,6 +49,8 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".modules.setting.AboutActivity"/>
+        <activity android:name=".modules.event.EventDetailActivity"/>
+        <activity android:name=".modules.welfare.PhotoActivity"/>
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@
     android:background="#e3e3e3"
     >
 
-    <include layout="@layout/toolbar_with_back"/>
+    <include layout="@layout/include_toolbar"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/username_til"

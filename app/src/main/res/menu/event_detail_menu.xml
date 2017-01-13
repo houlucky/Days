@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_modify"
+        android:orderInCategory="100"
+        android:title="@string/action_pic"
+        android:icon="@mipmap/ic_edit_white_24dp"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_select"
+        android:orderInCategory="99"
+        android:title="@string/action_modify"
+        android:icon="@mipmap/ic_pic_white_24dp"
+
+        app:showAsAction="always"
+        />
+
+
+</menu>

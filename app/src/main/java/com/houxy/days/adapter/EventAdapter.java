@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.houxy.days.base.BaseViewHolder;
+import com.houxy.days.base.i.OnItemClickListener;
 import com.houxy.days.bean.SpecialEvent;
 import com.houxy.days.widget.AnimRecyclerViewAdapter;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class EventAdapter extends AnimRecyclerViewAdapter {
 
     private ArrayList<SpecialEvent> specialEvents;
+    private OnItemClickListener mOnItemClickListener;
 
     public EventAdapter(){
         specialEvents = new ArrayList<>();
@@ -25,7 +27,7 @@ public class EventAdapter extends AnimRecyclerViewAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new EventViewHolder(parent.getContext(), parent);
+        return new EventViewHolder(parent.getContext(), parent, mOnItemClickListener);
     }
 
     @Override
@@ -51,5 +53,17 @@ public class EventAdapter extends AnimRecyclerViewAdapter {
 
     public ArrayList<SpecialEvent> getEventList() {
         return specialEvents;
+    }
+
+//    private OnItemClickListener mOnItemClickListener = new OnItemClickListener() {
+//        @Override
+//        public void onItemClick(int position) {
+//            Intent intent = EventDetailActivity.getIntentStartActivity(getContext(), specialEvent);
+//            getContext().startActivity(intent);
+//        }
+//    };
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 }
