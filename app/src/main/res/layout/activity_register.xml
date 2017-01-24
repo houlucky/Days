@@ -5,13 +5,15 @@
     android:background="#e3e3e3"
     >
 
-    <include layout="@layout/include_toolbar"/>
+    <include layout="@layout/include_toolbar"
+        android:id="@+id/toolbar"
+        />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/username_til"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/app_bar_layout"
+        android:layout_below="@+id/toolbar"
         android:layout_marginTop="@dimen/dimen_30"
         android:layout_marginStart="@dimen/margin_15"
         android:layout_marginEnd="@dimen/margin_15"
@@ -23,7 +25,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/username"
             android:textSize="@dimen/text_size_14"
-            android:singleLine="true"
+            android:maxLines="1"
             />
     </android.support.design.widget.TextInputLayout>
 

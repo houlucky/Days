@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,15 @@ import android.widget.RelativeLayout;
 
 import com.houxy.days.C;
 import com.houxy.days.R;
+import com.houxy.days.adapter.EmptyAdapter;
+import com.houxy.days.adapter.MeiZhiAdapter;
 import com.houxy.days.base.BaseFragment;
+import com.houxy.days.bean.MeiZhi;
+import com.houxy.days.bean.Result;
 import com.houxy.days.common.ACache;
 import com.houxy.days.common.RetrofitClient;
 import com.houxy.days.common.utils.RecyclerViewUtil;
 import com.houxy.days.common.utils.SPUtil;
-import com.houxy.days.adapter.EmptyAdapter;
-import com.houxy.days.adapter.MeiZhiAdapter;
-import com.houxy.days.bean.MeiZhi;
-import com.houxy.days.bean.Result;
 import com.houxy.days.widget.LoadMoreRecyclerView;
 
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ public class MeiZhiFragment extends BaseFragment {
     EmptyAdapter emptyAdapter;
     @Bind(R.id.empty_rl)
     RelativeLayout emptyRl;
-//    private int rows = -1; //一共有多少条数据
     private int currentPage = 0;
 
     @Nullable
@@ -94,7 +92,6 @@ public class MeiZhiFragment extends BaseFragment {
         Observer<Result<List<MeiZhi>>> meiZhiObserver = new Observer<Result<List<MeiZhi>>>() {
             @Override
             public void onCompleted() {
-                Log.d("TAG","5");
                 emptyRl.setVisibility(View.GONE);
             }
 
@@ -104,11 +101,9 @@ public class MeiZhiFragment extends BaseFragment {
                 if(!SPUtil.getMeiZhiCache()){
                     if(null == emptyAdapter){
                         emptyAdapter = new EmptyAdapter();
-                        Log.d("TAG","10");
                     }
                     loadMoreRecyclerView.setAdapter(emptyAdapter);
                     emptyRl.setVisibility(View.VISIBLE);
-                    Log.d("TAG","11");
                 }
             }
 
@@ -119,20 +114,17 @@ public class MeiZhiFragment extends BaseFragment {
                     if (currentPage == 1) {
 //                        RecyclerView empty after SwipeRefreshLayout pull onRefresh event
                         if(null == loadMoreRecyclerView.getAdapter()){
-                            meiZhiAdapter = new MeiZhiAdapter();
+                            meiZhiAdapter = new MeiZhiAdapter(getFragmentManager());
                             loadMoreRecyclerView.setAdapter(meiZhiAdapter);
                         }
                         meiZhiAdapter.getMeiZhiList().clear();
                         ArrayList<MeiZhi> meiZhis = new ArrayList<>();
                         meiZhis.addAll(meiZhiResult.getResults());
                         ACache.getDefault().put(C.MEIZHI_CACHE, meiZhis);
-                        Log.d("TAG", "2");
                     }
                     meiZhiAdapter.setMeiZhiList(meiZhiResult.getResults());
                     loadMoreRecyclerView.notifyDataChange(meiZhiResult.isError());
-                    Log.d("TAG","3");
                 }
-                Log.d("TAG","4");
             }
         };
 

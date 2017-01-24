@@ -58,7 +58,7 @@ public class LoadMoreRecyclerView extends RecyclerView{
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);//dy>0 说明正在下拉，dy表示滑动的距离
+                super.onScrolled(recyclerView, dx, dy);//dy>0 说明正在上拉，dy表示滑动的距离
                 if (loadMoreListener != null && !isLoadingMore && currentStatus == LOAD && dy > 0) {
                     if ((getLastVisiblePosition() + 1) == autoLoadAdapter.getItemCount()) {
                         isLoadingMore = true;
@@ -220,7 +220,7 @@ public class LoadMoreRecyclerView extends RecyclerView{
                 currentStatus = status;
             }
 
-//            autoLoadAdapter.notifyDataSetChanged();
+            //autoLoadAdapter.notifyDataSetChanged();
             //以前使用的全局更新会造成图片闪动
             //现在只有最后一个才闪动
             autoLoadAdapter.notifyItemInserted(getLastVisiblePosition() + 1 + 1);

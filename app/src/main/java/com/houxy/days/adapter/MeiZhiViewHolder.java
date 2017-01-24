@@ -1,8 +1,6 @@
 package com.houxy.days.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,9 +9,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.houxy.days.R;
 import com.houxy.days.base.BaseViewHolder;
+import com.houxy.days.base.i.OnItemClickListener;
 import com.houxy.days.bean.MeiZhi;
 import com.houxy.days.common.utils.DensityUtil;
-import com.houxy.days.modules.welfare.PhotoActivity;
 
 import butterknife.Bind;
 
@@ -28,8 +26,8 @@ public class MeiZhiViewHolder extends BaseViewHolder {
     @Bind(R.id.tv_title)
     TextView tvTitle;
 
-    public MeiZhiViewHolder(Context context, ViewGroup root) {
-        super(context, root, R.layout.item_recyclerview_meizhi);
+    public MeiZhiViewHolder(Context context, ViewGroup root, OnItemClickListener onItemClickListener) {
+        super(context, root, R.layout.item_recyclerview_meizhi, onItemClickListener);
     }
 
     @Override
@@ -43,13 +41,17 @@ public class MeiZhiViewHolder extends BaseViewHolder {
                 .into(ivGirl);
         tvTitle.setText(meiZhi.getDesc());
 
-        ivGirl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = PhotoActivity.getIntentStartActivity(getContext(), meiZhi.getUrl());
-                getContext().startActivity(intent);
-            }
-        });
+//        ivGirl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent = PhotoActivity.getIntentStartActivity(getContext(), meiZhi.getUrl());
+////                getContext().startActivity(intent);
+////
+////                PhotoFragment photoFragment = new PhotoFragment();
+////
+////                photoFragment.show((Activity)itemView.getContext())
+//            }
+//        });
     }
 
     //设置imageview的大小不一

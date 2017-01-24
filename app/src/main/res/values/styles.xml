@@ -13,6 +13,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--全屏显示-->
+    <style name="AppTheme.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+
     <style name="CustomToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="contentInsetStart">0dp</item>
     </style>

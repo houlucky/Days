@@ -9,6 +9,7 @@ import com.houxy.days.base.BaseViewHolder;
 import com.houxy.days.base.i.OnItemClickListener;
 import com.houxy.days.bean.SpecialEvent;
 import com.houxy.days.common.utils.TimeUtil;
+import com.orhanobut.logger.Logger;
 
 import java.util.Calendar;
 
@@ -36,6 +37,7 @@ public class EventViewHolder extends BaseViewHolder {
     @Override
     public void bindData(Object o) {
         final SpecialEvent specialEvent = (SpecialEvent)o;
+        Logger.d(specialEvent.getDate());
         Calendar calendarAssign = TimeUtil.getAssignCalendar(specialEvent.getDate());
         eventDaysTv.setText(TimeUtil.getDaysApart(calendarAssign));
 

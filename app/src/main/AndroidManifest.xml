@@ -13,7 +13,9 @@
     <!--获取sd卡写的权限，用于文件上传和下载-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--允许读取手机状态 用于创建BmobInstallation-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />.
+    <!--悬浮窗权限，没有这个魅族不显示toast-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".DaysApplication"
@@ -50,7 +52,9 @@
 
         <activity android:name=".modules.setting.AboutActivity"/>
         <activity android:name=".modules.event.EventDetailActivity"/>
-        <activity android:name=".modules.welfare.PhotoActivity"/>
+        <activity android:name=".modules.welfare.PhotoActivity"
+                  android:theme="@style/AppTheme.FullScreen"
+            />
     </application>
 
 </manifest>

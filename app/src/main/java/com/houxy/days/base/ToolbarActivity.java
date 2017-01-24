@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.houxy.days.R;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by Houxy on 2016/9/20.
@@ -36,7 +37,9 @@ public abstract class ToolbarActivity extends BaseActivity{
             if(null != getSupportActionBar()){
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
+                Logger.d("TAG", "okkkkkkkkkkkkk");
             }
+            Logger.d("TAG", "noooooo");
         }
     }
 
@@ -59,6 +62,7 @@ public abstract class ToolbarActivity extends BaseActivity{
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
+            Logger.d("click");
             return true;
         } else {
             return super.onOptionsItemSelected(item);

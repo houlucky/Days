@@ -4,18 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.houxy.days.C;
 import com.houxy.days.R;
-import com.houxy.days.adapter.DetailViewPagerAdapter;
+import com.houxy.days.adapter.ViewPagerAdapter;
 import com.houxy.days.base.ToolbarActivity;
 import com.houxy.days.bean.SpecialEvent;
 import com.houxy.days.common.ACache;
 import com.houxy.days.common.StatusBarUtil;
 import com.houxy.days.common.utils.ToastUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +60,13 @@ public class EventDetailActivity extends ToolbarActivity {
         int pos = getIntent().getIntExtra("pos", 0);
         setToolBarTitle("days");
         mToolBar.setBackgroundColor(0);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        List<SpecialEvent> specialEvents = (ArrayList<SpecialEvent>) ACache.getDefault().getAsObject(C.EVENT_CACHE);
-        DetailViewPagerAdapter adapter = new DetailViewPagerAdapter(getSupportFragmentManager(), specialEvents);
+        final List<SpecialEvent> specialEvents = (ArrayList<SpecialEvent>) ACache.getDefault().getAsObject(C.EVENT_CACHE);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), specialEvents){
+            @Override
+            public Fragment getItem(Object o, int pos) {
+                return EventDetailFragment.newInstance((SpecialEvent) o, pos);
+            }
+        };
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(pos);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -113,6 +119,7 @@ public class EventDetailActivity extends ToolbarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_select){
             ToastUtils.show("oh");
+            Logger.d("oh");
             return true;
         }else if(item.getItemId() == R.id.action_modify){
             ToastUtils.show("hh");

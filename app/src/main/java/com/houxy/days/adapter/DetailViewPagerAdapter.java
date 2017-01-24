@@ -13,7 +13,9 @@ import java.util.List;
  * Created by Houxy on 2016/12/8.
  * <p>
  * Info :  DetailViewPagerAdapter.java
+ * 已经被{@link ViewPagerAdapter} 取代
  */
+@Deprecated
 public class DetailViewPagerAdapter extends FragmentStatePagerAdapter{
 
     private List<SpecialEvent> mEvents;
